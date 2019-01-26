@@ -16,8 +16,6 @@ namespace Galleass.Models
         [Required]
         public int GridSquareId {get;set;}
         //Many to many(A port can many GridSquares)
-        public List<HasPort> HasPorts{get;set;}
-        //Many to many(A port can have many TradeGoods)
         public List<PortPrice> PortPrices{get;set;}
 
         public DateTime CreatedAt{get;set;} = DateTime.Now;
