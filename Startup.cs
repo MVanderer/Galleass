@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Galleass.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Galleass {
     public class Startup {
@@ -17,8 +19,12 @@ namespace Galleass {
         public void ConfigureServices (IServiceCollection services) {
             // Add framework services.
             services.AddDbContext<DataContext> (options => options.UseMySql (Configuration["DBInfo:ConnectionString"]));
+            services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
 
             services.AddMvc ();
+            services.AddAuthentication();
             services.AddSession ();
         }
 
