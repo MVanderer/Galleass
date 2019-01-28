@@ -1,1 +1,28 @@
 /*Write all of your CSS here*/
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+/* 
+canvas {
+    background: red;
+} */
+
+#menuBtn{
+    position: absolute;
+    top:10px;
+    right: 10px;
+    font-size: 200%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+}
+
+button:focus {outline:0;}
