@@ -24,9 +24,37 @@ namespace Galleass.Controllers
             return View();
         }
 
+        [HttpGet("Ship")]
+        public IActionResult ShipDetails(){
+            return View();
+        }
+
         [HttpGet("World")]
         public IActionResult World(){
             return View();
         }
+
+        [HttpGet("Port")]
+        public IActionResult Port(){
+            return View("Port/PortMain");
+        }
+
+        [HttpGet("Wharf")]
+        public IActionResult PortWarf(){
+            
+            return View("Port/PortWharf");
+        }
+
+        [HttpGet("Tavern")]
+        public IActionResult PortTavern(){
+            return View("Port/PortTavern");
+        }
+
+        [HttpGet("Market")]
+        public IActionResult PortMarket(){
+            return View("Port/PortMarket");
+        }
+
+
     }
 }
