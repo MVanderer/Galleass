@@ -1,0 +1,18 @@
+@using Galleass.Models
+@model LoginUser
+
+<form asp-action="Login" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="LoginEmail"></span><br>
+        <label asp-for="LoginEmail"></label><br>
+        <input asp-for="LoginEmail">
+    </div>
+    <div>
+        <span asp-validation-for="LoginPassword"></span><br>
+        <label asp-for="LoginPassword"></label><br>
+        <input asp-for="LoginPassword">
+    </div>
+    <div>
+        <input type="submit" value="Login">
+    </div>
+</form>

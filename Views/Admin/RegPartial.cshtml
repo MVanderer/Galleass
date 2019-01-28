@@ -1,0 +1,34 @@
+@using Galleass.Models
+@model User
+
+<form asp-action="Register" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="FirstName"></span><br>
+        <label asp-for="FirstName"></label><br>
+        <input asp-for="FirstName">
+    </div>
+    <div>
+        <span asp-validation-for="LastName"></span><br>
+        <label asp-for="LastName"></label><br>
+        <input asp-for="LastName">
+    </div>
+    <div>
+        <span asp-validation-for="Email"></span><br>
+        <label asp-for="Email"></label><br>
+        <input asp-for="Email">
+    </div>
+    <div>
+        <span asp-validation-for="Password"></span><br>
+        <label asp-for="Password"></label><br>
+        <input asp-for="Password">
+    </div>
+    <div>
+        <span asp-validation-for="ConfirmPassword"></span><br>
+        <label asp-for="ConfirmPassword"></label><br>
+        <input asp-for="ConfirmPassword">
+    </div>
+    <div>
+        <input type="submit" value="Register">
+    </div>
+    
+</form>
