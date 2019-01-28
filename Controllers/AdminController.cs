@@ -105,7 +105,13 @@ namespace Galleass.Controllers
             {
                 return RedirectToAction("LoginReg","Admin");
             }
-            ViewBag.Admin = userInDb.FirstName +" " + userInDb.LastName;
+            List<Port> allPorts = dbContext.Ports.ToList();
+            List<VesselType> allShips = dbContext.VesselTypes.ToList();
+            List<TradeGood> allTradeGoods = dbContext.TradeGoods.ToList();
+            ViewBag.Ports = allPorts;
+            ViewBag.Ships = allShips;
+            ViewBag.TradeGoods = allTradeGoods;
+            ViewBag.Admin = userInDb.FirstName + " " + userInDb.LastName;
             return View();
         }
         [HttpGet("logout")]

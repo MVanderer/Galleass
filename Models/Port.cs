@@ -10,7 +10,7 @@ namespace Galleass.Models
         [Key]
         public int PortId {get;set;}
         public string PortName {get;set;}
-        public string ImageURL {get;set;}
+        public string PortImageURL {get;set;}
         public string Description{get;set;}
         //One to One(Port must have a GridSquareId)
         [Required]

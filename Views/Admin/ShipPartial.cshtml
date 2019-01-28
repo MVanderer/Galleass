@@ -1,0 +1,37 @@
+@using Galleass.Models
+@model VesselType
+<form asp-action="CreateShip" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="TypeName"></span><br>
+        <label asp-for="TypeName"></label><br>
+        <input asp-for="TypeName">
+    </div>
+    <div>
+        <span asp-validation-for="CargoSpace"></span><br>
+        <label asp-for="CargoSpace"></label><br>
+        <input asp-for="CargoSpace">
+    </div>
+    <div>
+        <span asp-validation-for="TopSpeed"></span><br>
+        <label asp-for="TopSpeed"></label><br>
+        <input asp-for="TopSpeed">
+    </div>
+    <div>
+        <span asp-validation-for="Oars"></span><br>
+        <label asp-for="Oars"></label><br>
+        <input asp-for="Oars">
+    </div>
+    <div>
+        <span asp-validation-for="MinCrew"></span><br>
+        <label asp-for="MinCrew"></label><br>
+        <input asp-for="MinCrew">
+    </div>
+    <div>
+        <span asp-validation-for="MaxCrew"></span><br>
+        <label asp-for="MaxCrew"></label><br>
+        <input asp-for="MaxCrew">
+    </div>
+    <div>
+        <input class="submit" type="submit" value="Create Ship">
+    </div>
+</form>

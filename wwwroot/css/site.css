@@ -42,7 +42,7 @@ button:focus {outline:0;}
     padding-top: 1%;
     padding-bottom: 1%;
     background-color: navy;
-    max-height: 1200px;
+    max-height: 900px;
     overflow-y: scroll;
 }
 .aside{
@@ -57,12 +57,16 @@ button:focus {outline:0;}
     margin: 2% auto;
     background-color: gold;
 }
+aside#db{
+    width: 15%;
+    display: inline-block;
+}
 #adminMain{
-    width: 80%;
+    width: 60%;
     display: inline-block;
     margin: 1%;
     background-image:url("../img/admin-map.jpg");
-    min-height: 1200px;
+    min-height: 900px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

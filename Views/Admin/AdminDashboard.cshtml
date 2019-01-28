@@ -1,6 +1,5 @@
 @{
     ViewData["Title"] = "Home Page";
-    int map = 1;
 }
 <header id="adminHeader">
     <h1>GALLEASS ADMIN: @ViewBag.Admin</h1>
@@ -29,3 +28,26 @@
     Your browser does not support HTML5 Canvas.
     </canvas>
 </main>
+<aside id="db">
+    <div>
+        <h3>Ports:</h3>
+        @foreach(var p in @ViewBag.Ports)
+        {
+            <p>@p.PortName</p>
+        }
+    </div>
+    <div>
+        <h3>Trade Goods:</h3>
+        @foreach(var g in @ViewBag.TradeGoods)
+        {
+            <p>@g.GoodName</p>
+        }
+    </div>
+    <div>
+        <h3>Ships:</h3>
+        @foreach(var s in @ViewBag.Ships)
+        {
+            <p>@s.TypeName</p>
+        }
+    </div>
+</aside>
