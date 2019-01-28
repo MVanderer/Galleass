@@ -21,7 +21,7 @@ namespace Galleass.Models {
         [EmailAddress]
         [Display (Name = "Email:")]
         public string Email { get; set; }
-        public bool Admin{get;set;}
+        public bool Admin{get;set;} = false;
 
         [Required]
         [DataType (DataType.Password)]
