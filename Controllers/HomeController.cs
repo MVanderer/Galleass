@@ -18,9 +18,14 @@ namespace Galleass.Controllers
         }
         // GET: /Home/
         [HttpGet]
-        [Route("")]
+        [Route("GameMenu")]
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpGet("World")]
+        public IActionResult World(){
             return View();
         }
     }
