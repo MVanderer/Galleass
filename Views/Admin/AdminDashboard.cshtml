@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Home Page";
+    int map = 1;
+}
+<header id="adminHeader">
+    <h1>GALLEASS ADMIN: @ViewBag.Admin</h1>
+</header>
+<aside id="adminAside">
+    <div class="aside" id="mapMake">
+        <h3>Create Map Size:</h3>
+        <partial name="MapPartial"></partial>
+    </div>
+    <div class="aside" id="portMaker">
+        <h3>Create a Port:</h3>
+        <partial name="PortPartial"></partial>
+    </div>
+    <div class="aside" id="goodMaker">
+        <h3>Create a TradeGood:</h3>
+        <partial name="GoodsPartial"></partial>
+    </div>
+    <div class="aside" id="shipMaker">
+        <h3>Create a Ship:</h3>
+        <partial name="ShipPartial"></partial>
+    </div>
+
+</aside>
+<main id="adminMain">
+    <canvas>
+    Your browser does not support HTML5 Canvas.
+    </canvas>
+</main>

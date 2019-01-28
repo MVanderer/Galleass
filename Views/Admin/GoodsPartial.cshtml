@@ -1,0 +1,33 @@
+@using Galleass.Models
+@model TradeGood
+<form asp-action="CreateTradeGood" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="GoodName"></span><br>
+        <label asp-for="GoodName"></label><br>
+        <input asp-for="GoodName">
+    </div>
+    <div>
+        <span asp-validation-for="GoodImageURL"></span><br>
+        <label asp-for="GoodImageURL"></label><br>
+        <input asp-for="GoodImageURL">
+    </div>
+    <div>
+        <span asp-validation-for="GoodBasePrice"></span><br>
+        <label asp-for="GoodBasePrice"></label><br>
+        <input asp-for="GoodBasePrice">
+    </div>
+    <div>
+        <span asp-validation-for="GoodWeight"></span><br>
+        <label asp-for="GoodWeight"></label><br>
+        <input asp-for="GoodWeight">
+    </div>
+    <div>
+        <span asp-validation-for="GoodVolume"></span><br>
+        <label asp-for="GoodVolume"></label><br>
+        <input asp-for="GoodVolume">
+    </div>
+    <div>
+        <input class="submit" type="submit" value="Creat TradeGood">
+    </div>
+
+</form>

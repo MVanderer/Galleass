@@ -1,0 +1,22 @@
+@using Galleass.Models
+@model Port
+<form asp-action="NewPort" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="PortName"></span><br>
+        <label asp-for="PortName"></label><br>
+        <input asp-for="PortName">
+    </div>
+    <div>
+        <span asp-validation-for="ImageURL"></span><br>
+        <label asp-for="ImageURL"></label><br>
+        <input asp-for="ImageURL">
+    </div>
+    <div>
+        <span asp-validation-for="Description"></span><br>
+        <label asp-for="Description"></label><br>
+        <input asp-for="Description">
+    </div>
+    <div>
+        <input class="submit" type="submit" value="Create Port">
+    </div>
+</form>

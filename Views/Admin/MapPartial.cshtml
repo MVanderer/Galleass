@@ -1,0 +1,15 @@
+@using Galleass.Models
+@model GridSquare
+<form asp-action="MapSize" asp-controller="Admin" method="Post">
+    <div>
+        <label for="mapSizeY">Map Height:</label><br>
+        <input type="number" min="0" name="mapSizeY">
+    </div>
+    <div>
+        <label for="maySizeX">Map Width:</label><br>
+        <input type="number" min="0" name="mapSizeX">
+    </div>
+    <div>
+        <input class="submit" type="submit" value="Create">
+    </div>
+</form>
