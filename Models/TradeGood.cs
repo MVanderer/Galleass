@@ -10,10 +10,10 @@ namespace Galleass.Models
         [Key]
         public int TradeGoodId {get;set;}
         public string GoodName {get;set;}
-        public string ImageURL {get;set;}
-        public float BasePrice {get;set;}
-        public int Weight {get;set;}
-        public int Volume {get;set;}
+        public string GoodImageURL {get;set;}
+        public float GoodBasePrice {get;set;}
+        public int GoodWeight {get;set;}
+        public int GoodVolume {get;set;}
         //Many to many(TradeGoods can be in many different ports.)
         public List<PortPrice> PortPrice {get;set;}
         //Many to many(TradeGood can belong to many players.)

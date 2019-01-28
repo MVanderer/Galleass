@@ -26,3 +26,52 @@ canvas {
 }
 
 button:focus {outline:0;}
+
+#adminHeader{
+    width: 100%;
+    text-align: center;
+    padding: 1%;
+}
+
+#adminAside{
+    width: 15%;
+    display: inline-block;
+    border: 2px solid black;
+    margin: 1%;
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: navy;
+    max-height: 1200px;
+    overflow-y: scroll;
+}
+.aside{
+    background-color: rgb(177, 125, 28);
+}
+#adminAside input{
+    font-size: 100%;
+    padding: 2%;
+    background-color: lightskyblue;
+}
+#adminAside input.submit{
+    margin: 2% auto;
+    background-color: gold;
+}
+#adminMain{
+    width: 80%;
+    display: inline-block;
+    margin: 1%;
+    background-image:url("../img/admin-map.jpg");
+    min-height: 1200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+.aside{
+    border: 1px solid black;
+    width: 90%;
+    margin: 1% auto 1% auto;
+    padding: 2%;
+    font-size: 170%;
+}

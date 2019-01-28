@@ -14,6 +14,7 @@ namespace Galleass.Models
         public string Description{get;set;}
         //One to One(Port must have a GridSquareId)
         [Required]
+        [Display(Name="Location:")]
         public int GridSquareId {get;set;}
         //Many to many(A port can many GridSquares)
         public List<PortPrice> PortPrices{get;set;}
