@@ -17,10 +17,15 @@ namespace Galleass.Controllers
             dbContext = context;
         }
         [HttpGet]
-        [Route("/home")]
-        public IActionResult Index()
+        [Route("")]
+        public IActionResult Landing()
         {
             return View();
+        }
+        [HttpGet("/start")]
+        public IActionResult Start()
+        {
+            return RedirectToAction("Index","Home");
         }
     }
 }

@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<header>
+    <h1>Welcome to Galleass!</h1>
+</header>
+<main>
+    <img src="#" alt="Galleass">
+    <button asp-action="LogReg" asp-controller="Admin">Play</button>
+    <input type="button" value="Game Menu" onclick="location.href='@Url.Action("Index","Home")'" />
+</main>
