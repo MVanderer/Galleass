@@ -74,10 +74,10 @@ class gameMap {
 }
 //there will have to be a better way to make these, but this is the meat - actual locations in the sea
 let newLoc = [
-    new mapPoint(1, 1, "land","land-hex.png"),
-    new mapPoint(3, 1, "land","land-hex.png"),
-    new mapPoint(4, 1, "land","land-hex.png"),
-    new mapPoint(5, 1, "land","land-hex.png"),
+    new mapPoint(1, 1, "land", "land-hex.png"),
+    new mapPoint(3, 1, "land", "land-hex.png"),
+    new mapPoint(4, 1, "land", "land-hex.png"),
+    new mapPoint(5, 1, "land", "land-hex.png"),
 ];
 
 let myMap = new gameMap(9, 12, newLoc);
@@ -124,47 +124,46 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-function drawHex(xCoord, yCoord, sideSize, type, url="sea-hex.png", arrX = "", arrY = "") {
+function drawHex(xCoord, yCoord, sideSize, type, url = "sea-hex.png", arrX = "", arrY = "") {
     let img = new Image();
     img.src = "/img/" + url;
 
     img.onload = () => {
-        }
-        c.drawImage(
-            img, 
-            xCoord-sideSize, 
-            yCoord-(Math.sqrt(3) * sideSize)/2, 
-            2 * sideSize,
-            Math.sqrt(3) * sideSize);
-    
+    }
+    c.drawImage(
+        img,
+        xCoord - sideSize,
+        yCoord - (Math.sqrt(3) * sideSize) / 2,
+        2 * sideSize,
+        Math.sqrt(3) * sideSize);
 
-        c.beginPath();
-        c.moveTo(xCoord + sideSize * Math.cos(0), yCoord + sideSize * Math.sin(0));
 
-        for (let side = 0; side < 7; side++) {
-            c.lineTo(xCoord + sideSize * Math.cos(side * 2 * Math.PI / 6), yCoord + sideSize * Math.sin(side * 2 * Math.PI / 6));
-        }
+    c.beginPath();
+    c.moveTo(xCoord + sideSize * Math.cos(0), yCoord + sideSize * Math.sin(0));
 
-        if (type == "port") {
-            c.fillStyle = "rgba(49, 88, 88, 0.404)";
-            c.fill();
-        }
-        else if (type == "land") {
-            c.fillStyle = "rgb(21, 112, 41)";
-            c.fill();
+    for (let side = 0; side < 7; side++) {
+        c.lineTo(xCoord + sideSize * Math.cos(side * 2 * Math.PI / 6), yCoord + sideSize * Math.sin(side * 2 * Math.PI / 6));
+    }
 
-        }
-        else {
-            c.strokeStyle = "#fa34a3";
-            c.stroke();
+    if (type == "port") {
+        c.fillStyle = "rgba(49, 88, 88, 0.404)";
+        c.fill();
+    }
+    else if (type == "land") {
+        c.fillStyle = "rgb(21, 112, 41)";
+        c.fill();
 
-        }
-        if (showingCoords) {
-            c.font = "20px Arial";
-            c.fillStyle = "black";
-            c.fillText(arrX + "," + arrY, xCoord, yCoord);
-        }
-    // }
+    }
+    else {
+        c.strokeStyle = "#fa34a3";
+        c.stroke();
+
+    }
+    if (showingCoords) {
+        c.font = "20px Arial";
+        c.fillStyle = "black";
+        c.fillText(arrX + "," + arrY, xCoord, yCoord);
+    }
 
 }
 
@@ -204,7 +203,7 @@ function animate() {
         c.rect(canvas.width / 2, canvas.height / 2, 1, 1);
         c.stroke();
     }
-    myMap.drawGrid(currentX, currentY, 4, 4,0,0);
+    myMap.drawGrid(currentX, currentY, 4, 4, 0, 0);
 
 }
 animate();
