@@ -19,7 +19,7 @@ class gameMap {
                 let m = {
                     type: "sea",
                     id: cellId + rowId,
-                    ulr: "sea-hex.png"
+                    url: "sea-hex.png"
                 };
                 row.push(m);
             }
@@ -177,6 +177,8 @@ let shifting = false;
 function shift() {
 
 }
+
+console.log(myMap);
 drawHex(0, 0, size, "sea", "sea-hex.png");
 
 function animate() {
