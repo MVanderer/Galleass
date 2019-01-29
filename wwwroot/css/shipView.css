@@ -1,0 +1,23 @@
+#shipDetailsWrapper{
+    text-align: center;
+    /* height: 50%; */
+}
+#shipDetailsWrapper img{
+    max-height: 500px;
+}
+#shipDetailsWrapper div{
+    position: absolute;
+    text-align: left;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.906);
+    border: black 1px solid;
+    border-radius: 10px;
+}
+#shipDetailsWrapper div:nth-child(2){
+    top:18%;
+    left: 36%;
+}
+#shipDetailsWrapper div:nth-child(3){
+    top:47%;
+    left: 34%;
+}

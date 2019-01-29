@@ -26,6 +26,9 @@ namespace Galleass.Controllers
 
         [HttpGet("Ship")]
         public IActionResult ShipDetails(){
+            ViewBag.Sailors=34;
+            ViewBag.MinCrew=24;
+            ViewBag.Food=30;
             return View();
         }
 
