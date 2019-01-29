@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 namespace Galleass.Models {
     public class User {
         [Key]
@@ -26,8 +27,7 @@ namespace Galleass.Models {
         [Required]
         [DataType (DataType.Password)]
         [MinLength (8, ErrorMessage = "Password must be at least 8 characters long!")]
-        [ValidPassword(ErrorMessage = "Password must contain at least 1 number, 1 letter, and 1 special character")]
-        [Display (Name = "Password:")]
+        [PasswordCheck(ErrorMessage="Your password must have at least one letter, one number, and one special character")]
         public string Password { get; set; }
 
         [NotMapped]
@@ -41,29 +41,17 @@ namespace Galleass.Models {
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
-    public class ValidPasswordAttribute : ValidationAttribute {
-        public override bool IsValid (object value) {
-            string password = (string)value;
-            bool hasDecimalDigit = false;
-            bool hasLowerCaseLetter = false;
-            bool hasUpperCaseLetter = false;
-            bool hasSpecialChar = false;
-            foreach (char c in password) 
-            {
-                if (char.IsUpper (c)) hasUpperCaseLetter = true;
-                else if (char.IsLower (c)) hasLowerCaseLetter = true;
-                else if (char.IsDigit (c)) hasDecimalDigit = true;
-                else if (!char.IsUpper (c) && !char.IsDigit(c) && !char.IsDigit(c)) hasSpecialChar = true;
+    public class PasswordCheckAttribute : ValidationAttribute {
+        protected override ValidationResult IsValid (object value, ValidationContext validationContext) {
+            string valStr = Convert.ToString (value);
+            string regex = @"(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z])";
+            var match = Regex.Match(valStr,regex,RegexOptions.IgnoreCase);
+            if (match.Success){
+                return ValidationResult.Success;
             }
-            if(hasDecimalDigit == true && hasLowerCaseLetter == true && hasUpperCaseLetter == true && hasSpecialChar == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
+            else {
+                return new ValidationResult(ErrorMessage);
             }
         }
-
     }
 }
