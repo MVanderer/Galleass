@@ -115,15 +115,6 @@ namespace Galleass.Controllers
             ViewBag.TradeGoods = allTradeGoods;
             ViewBag.Admin = userInDb.FirstName + " " + userInDb.LastName;
             List<GridSquare> gridsToMap = dbContext.GridSquares.ToList();
-            int xCount = dbContext.GridSquares.Max(x => x.xCoord) + 1;
-            int yCount = dbContext.GridSquares.Max(y => y.yCoord) + 1;
-            List<List<GridSquare>> Grid = new List<List<GridSquare>>();
-            for(var i = 0; i < yCount; i++)
-            {
-                List<GridSquare> row = dbContext.GridSquares.Where(g => g.yCoord == i).ToList();
-                Grid.Add(row);
-            }
-            @ViewBag.Grid = Grid;
             return View();
         }
         [HttpPost("mapsize")]
@@ -159,6 +150,21 @@ namespace Galleass.Controllers
                 return RedirectToAction("AdminDashboard","Admin");
             }
             return View("AdminDashboard");
+        }
+        [HttpGet("wholemap")]
+        public IActionResult WholeMap()
+        {
+            int xCount = dbContext.GridSquares.Max(x => x.xCoord) + 1;
+            int yCount = dbContext.GridSquares.Max(y => y.yCoord) + 1;
+            List<List<GridSquare>> Grid = new List<List<GridSquare>>();
+            for(var i = 0; i < yCount; i++)
+            {
+                List<GridSquare> row = dbContext.GridSquares.Where(g => g.yCoord == i).ToList();
+                Grid.Add(row);
+            }
+            @ViewBag.Grid = Grid;
+
+            return View();
         }
         [HttpGet("logout")]
         public IActionResult Logout()
