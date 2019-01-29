@@ -114,6 +114,40 @@ namespace Galleass.Controllers
             ViewBag.Admin = userInDb.FirstName + " " + userInDb.LastName;
             return View();
         }
+        [HttpPost("mapsize")]
+        public IActionResult MapSize (int mapSizeY, int mapSizeX)
+        {
+            List<GridSquare> allGrids = dbContext.GridSquares.ToList();
+            foreach(var g in allGrids)
+            {
+                dbContext.GridSquares.Remove(g);
+            }
+            for(int y = 0; y < mapSizeY; y++)
+            {
+                for(int x = 0; x < mapSizeX; x++)
+                {
+                    GridSquare newGridSquare = new GridSquare();
+                    newGridSquare.xCoord = x;
+                    newGridSquare.yCoord = y;
+                    newGridSquare.ImageURL = "sea-hex.png";
+                    newGridSquare.Type = "sea";
+                    dbContext.GridSquares.Add(newGridSquare);
+                    dbContext.SaveChanges();
+                }
+            }
+            return RedirectToAction("AdminDashboard", "Admin");
+        }
+        [HttpPost("createport")]
+        public IActionResult NewPort(Port newPort)
+        {
+            if(ModelState.IsValid)
+            {
+                dbContext.Ports.Add(newPort);
+                dbContext.SaveChanges();
+                return RedirectToAction("AdminDashboard","Admin");
+            }
+            return View("AdminDashboard");
+        }
         [HttpGet("logout")]
         public IActionResult Logout()
         {

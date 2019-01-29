@@ -8,8 +8,8 @@ namespace Galleass.Models
     {
         [Key]
         public int SupplyId {get;set;}
-        public string name {get;set;}
-        public float baseCost {get;set;}
+        public string SupplyName {get;set;}
+        public float SupplyBaseCost {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
         

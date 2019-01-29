@@ -1,0 +1,18 @@
+@using Galleass.Models
+@model Supply
+<form asp-action="CreateSupply" asp-action="Admin" method="Post">
+    <div>
+        <span asp-validation-for="SupplyName"></span><br>
+        <label asp-for="SupplyName"></label><br>
+        <input asp-for="SupplyName">
+    </div>
+    <div>
+        <span asp-validation-for="SupplyBaseCost"></span><br>
+        <label asp-for="SupplyBaseCost"></label><br>
+        <input asp-for="SupplyBaseCost">
+    </div>
+    <div>
+        <input class="submit" type="submit" value="Create Supply"> 
+    </div>
+
+</form>

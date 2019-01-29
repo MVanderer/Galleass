@@ -34,7 +34,7 @@ button:focus {outline:0;}
 }
 
 #adminAside{
-    width: 15%;
+    width: 20%;
     display: inline-block;
     border: 2px solid black;
     margin: 1%;
@@ -57,9 +57,28 @@ button:focus {outline:0;}
     margin: 2% auto;
     background-color: gold;
 }
-aside#db{
-    width: 15%;
+#db{
+    width: 90%;
+    margin: 1% auto;
+    border: 5px solid brown;
+}
+#db div{
+    width: 45%;
     display: inline-block;
+    border: 1px solid black;
+    font-size: 125%;
+    margin:  .5% 2% .5% 2.5%;
+}
+table{
+    width: 100%;
+}
+#db div table th, #db div table td{
+    border: 1px solid black;
+    padding: 1%;
+}
+#db div table th{
+    background-color: grey;
+    
 }
 #adminMain{
     width: 60%;
