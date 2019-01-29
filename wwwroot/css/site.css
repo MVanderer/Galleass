@@ -120,8 +120,6 @@ table{
     font-size: 170%;
 }
 
-
-
 #dircontrols {
     position: absolute;
     height: 100%;
@@ -130,3 +128,4 @@ table{
     left:0%;
     z-index: 2;
 }
+

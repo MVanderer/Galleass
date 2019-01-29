@@ -1,1 +1,22 @@
-<h2>Ship Details</h2>
+<link rel="stylesheet" href="~/css/shipView.css">
+<div id="shipDetailsWrapper">
+    <h2>Ship Details</h2>
+    <div>
+        <h4>Crew:</h4>
+        <p>@ViewBag.Sailors people on board</p>
+        @if (ViewBag.MinCrew<ViewBag.Sailors){
+            <p>Crew ready to set sail</p>
+        }
+        else {
+            <p style="color:red">You need a larger crew to operate this ship!</p>
+        }
+    </div>
+    <div>
+        <h4>Provisions:</h4>
+        <p>@ViewBag.Food pounds of food left</p>
+        @if (ViewBag.Food<ViewBag.Sailors){
+            <p style="color:red">Running low!</p>
+        }
+    </div>
+    <img src="~/img/galleon.png" alt="">
+</div>
