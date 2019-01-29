@@ -121,11 +121,8 @@ namespace Galleass.Controllers
         [HttpPost("mapsize")]
         public IActionResult MapSize (int mapSizeY, int mapSizeX)
         {
-            List<GridSquare> allGrids = dbContext.GridSquares.ToList();
-            foreach(var g in allGrids)
-            {
-                dbContext.GridSquares.Remove(g);
-            }
+            dbContext.Database.ExecuteSqlCommand("DELETE FROM GridSquares");
+            dbContext.SaveChanges();
             for(int y = 0; y < mapSizeY; y++)
             {
                 for(int x = 0; x < mapSizeX; x++)
