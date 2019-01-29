@@ -19,7 +19,7 @@ class gameMap {
                 let m = {
                     type: "sea",
                     id: cellId + rowId,
-                    ulr: ""
+                    ulr: "sea-hex.png"
                 };
                 row.push(m);
             }
@@ -37,48 +37,37 @@ class gameMap {
         }
     }
 
-    drawGrid() {
-        //size is for rendering purposes only, and should probably be a global variable eventually
-        for (let row = 0; row < this.layout.length; row++) {
-            for (let cell = 0; cell < this.layout[row].length; cell++) {
-                this.drawCell(cell, row);
-            }
+    drawGrid(xPos, yPos, horRange, vertRange,xOffset=0,yOffset=0) {
+        //Odd-Q!!! Very important.“odd-q” vertical layout shoves odd columns down
+        xOffset=xOffset*(3 / 2) * size;
+        if (xPos % 2 != 0) {
+            yOffset = yOffset*(Math.sqrt(3) * size);
         }
-    }
-
-    drawCell(xPos, yPos) {
-        //again size may have to go away and become a global variable. In fact scratch the "may" part. DEFINITELY a global variable, probably affected by the window size
-
-        //x and y are offsets from the corner of a square grid to the center of the hex cell, xPos and yPos are coordinates in the 2x2 matrix that records the map
-        //Using ODD-Q layout here
-        let x, y;
-        x = size + xPos * (3 / 2) * size;
-        y = (Math.sqrt(3) * size) * (yPos + 0.5 - (0.5 * (xPos % 2)));
-        //trigonometry for the win, calculate locations of equal length lines at 120 degree angles to one another and move canvas pen to them one by one
-        drawHex(x,y,size,this.layout[yPos][xPos].type,this.layout[yPos][xPos].type,xPos,yPos);
-    }
-
-    drawGridAtCenter(xPos,yPos,horRange,vertRange){
-        let x = canvas.width/2;
-        let y = canvas.height/2;
-        for (let ver = 0-vertRange; ver<=vertRange;ver++){
-            for (let hor = 0-horRange; hor<=horRange;hor++){
-                let type="sea";
-                let url="";
-                if (this.layout[yPos+ver]){
-                    if(this.layout[yPos+ver][xPos+hor]){
-                        type = this.layout[yPos+ver][xPos+hor].type;
-                        url = this.layout[yPos+ver][xPos+hor].url;
+        let x = (canvas.width / 2) + xOffset;
+        let y = (canvas.height / 2) + yOffset;
+        for (let ver = 0 - vertRange; ver <= vertRange; ver++) {
+            for (let hor = 0 - horRange; hor <= horRange; hor++) {
+                let type = "sea";
+                let url = "";
+                if (this.layout[yPos + ver]) {
+                    if (this.layout[yPos + ver][xPos + hor]) {
+                        type = this.layout[yPos + ver][xPos + hor].type;
+                        url = this.layout[yPos + ver][xPos + hor].url;
                     }
                 }
+                let flip1 = (ver + (0.5 * (Math.abs(hor) % 2)));
+                let flip2 = (ver - (0.5 * (Math.abs(hor) % 2)));
+                if (xPos % 2 != 0) {
+                    flip1 = flip2;
+                }
                 drawHex(
-                    x+hor*(3/2)*size,
-                    y+(Math.sqrt(3) * size) * (ver - (0.5 * (hor % 2))),
+                    x + hor * (3 / 2) * size,
+                    y + (Math.sqrt(3) * size) * flip1,
                     size,
                     type,
                     url,
-                    xPos+hor,
-                    yPos+ver);
+                    xPos + hor,
+                    yPos + ver);
             }
         }
     }
@@ -106,32 +95,36 @@ canvas.addEventListener("click", (e) => {
     console.log("x: " + e.x + ", y: " + e.y);
 });
 
-let showingCoords = false;
-
-let currentX=0;
-let currentY=0;
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown", (e) => {
     console.log(e);
     //admin turning 2D coords rendering on and off when G(lower or upper case) is pressed
     if (e.code == "KeyG") {
         if (showingCoords) { showingCoords = false; }
         else { showingCoords = true; }
     }
-    else if (e.code=="ArrowRight"){
-        currentX++;
+    else if (e.code == "ArrowRight") {
+        if (currentX < myMap.width) {
+            currentX++;
+        }
     }
-    else if (e.code=="ArrowLeft"){
-        currentX--;
+    else if (e.code == "ArrowLeft") {
+        if (currentX > 0) {
+            currentX--;
+        }
     }
-    else if (e.code=="ArrowUp"){
-        currentY--;
+    else if (e.code == "ArrowUp") {
+        if (currentY > 0) {
+            currentY--;
+        }
     }
-    else if (e.code=="ArrowDown"){
-        currentY++;
+    else if (e.code == "ArrowDown") {
+        if (currentY < myMap.height) {
+            currentY++;
+        }
     }
 });
 
-function drawHex(xCoord, yCoord, sideSize, type, url,arrX="",arrY="") {
+function drawHex(xCoord, yCoord, sideSize, type, url, arrX = "", arrY = "") {
     c.beginPath();
     c.moveTo(xCoord + sideSize * Math.cos(0), yCoord + sideSize * Math.sin(0));
 
@@ -149,32 +142,56 @@ function drawHex(xCoord, yCoord, sideSize, type, url,arrX="",arrY="") {
 
     }
     else {
+        
         c.strokeStyle = "#fa34a3";
         c.stroke();
     }
-    if (showingCoords){
-        c.font = "10px Arial";
+    if (showingCoords) {
+        c.font = "20px Arial";
         c.fillStyle = "black";
         c.fillText(arrX + "," + arrY, xCoord, yCoord);
     }
 
 }
 
-let size = canvas.height / myMap.height;
+let showingCoords = true;
+let size = 50;
+
+let currentX = 0;
+let currentY = 0;
+let shifting = false;
+
+function shift (){
+
+}
 
 
 function animate() {
     //basic animation setup
     requestAnimationFrame(animate);
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    var sizeW = window.innerWidth;
+    var sizeH = window.innerHeight;
+    canvas.style.width = sizeW + "px";
+    canvas.style.height = sizeH + "px";
+    var scale = window.devicePixelRatio; // Change to 1 on retina screens to see blurry canvas.
+    canvas.width = sizeW * scale;
+    canvas.height = sizeH * scale;
+
     c.clearRect(0, 0, innerWidth, innerHeight);
     //actual animation stuff
-    c.rect(canvas.width/2,canvas.height/2,1,1);
-    c.stroke();
+    if (canvas.width>canvas.height){
+        size = canvas.width / 13;
+    } else {
+        size = canvas.height / 13;
+    }
 
+    if (showingCoords) {
+        c.rect(canvas.width / 2, canvas.height / 2, 1, 1);
+        c.stroke();
+    }
     // myMap.drawGrid();
-    myMap.drawGridAtCenter(currentX,currentY,7,6);
+    myMap.drawGrid(currentX, currentY, 4, 4,0,0);
 
 }
 animate();
