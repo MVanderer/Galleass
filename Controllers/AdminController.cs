@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace Galleass.Controllers
 {
@@ -152,7 +153,7 @@ namespace Galleass.Controllers
             return View("AdminDashboard");
         }
         [HttpGet("wholemap")]
-        public IActionResult WholeMap()
+        public string WholeMap()
         {
             int xCount = dbContext.GridSquares.Max(x => x.xCoord) + 1;
             int yCount = dbContext.GridSquares.Max(y => y.yCoord) + 1;
@@ -162,9 +163,7 @@ namespace Galleass.Controllers
                 List<GridSquare> row = dbContext.GridSquares.Where(g => g.yCoord == i).ToList();
                 Grid.Add(row);
             }
-            @ViewBag.Grid = Grid;
-
-            return View();
+            return JsonConvert.SerializeObject(Grid, Formatting.Indented);
         }
         [HttpGet("logout")]
         public IActionResult Logout()
