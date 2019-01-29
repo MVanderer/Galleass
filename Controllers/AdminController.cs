@@ -38,6 +38,7 @@ namespace Galleass.Controllers
                     if(dbContext.Users.Any(u => u.Email == newUser.Email))
                     {
                         ModelState.AddModelError("Email", "Email already in use!");
+                        return View("LoginReg");
                     }
                     PasswordHasher<User> AdminHasher = new PasswordHasher<User>();
                     newUser.Password = AdminHasher.HashPassword(newUser, newUser.Password);
@@ -50,6 +51,7 @@ namespace Galleass.Controllers
                 if(dbContext.Users.Any(u => u.Email == newUser.Email))
                 {
                     ModelState.AddModelError("Email", "Email already in use!");
+                    return View("LoginReg");
                 }
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 newUser.Password = Hasher.HashPassword(newUser, newUser.Password);
@@ -70,14 +72,14 @@ namespace Galleass.Controllers
                 if(userInDb == null)
                 {
                     ModelState.AddModelError("Email", "Invalid Email");
-                    return View("LoginReg","Admin");
+                    return View("LoginReg");
                 }
                 var hasher = new PasswordHasher<LoginUser>();
                 var result = hasher.VerifyHashedPassword(userSubmission, userInDb.Password,userSubmission.LoginPassword);
                 if(result == 0)
                 {
                     ModelState.AddModelError("Password", "That isn't the correct password for this email address!");
-                    return View("LoginReg","Admin");
+                    return View("LoginReg");
                 }
                 if(userInDb.Admin == true)
                 {
@@ -90,7 +92,7 @@ namespace Galleass.Controllers
                     return RedirectToAction("Index","Home");
                 }
             }
-            return View("LoginReg","Admin");
+            return View("LoginReg");
         }
         [HttpGet("/admindashboard")]
         public IActionResult AdminDashboard()
@@ -112,6 +114,16 @@ namespace Galleass.Controllers
             ViewBag.Ships = allShips;
             ViewBag.TradeGoods = allTradeGoods;
             ViewBag.Admin = userInDb.FirstName + " " + userInDb.LastName;
+            List<GridSquare> gridsToMap = dbContext.GridSquares.ToList();
+            int xCount = dbContext.GridSquares.Max(x => x.xCoord) + 1;
+            int yCount = dbContext.GridSquares.Max(y => y.yCoord) + 1;
+            List<List<GridSquare>> Grid = new List<List<GridSquare>>();
+            for(var i = 0; i < yCount; i++)
+            {
+                List<GridSquare> row = dbContext.GridSquares.Where(g => g.yCoord == i).ToList();
+                Grid.Add(row);
+            }
+            @ViewBag.Grid = Grid;
             return View();
         }
         [HttpPost("mapsize")]
