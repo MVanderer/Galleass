@@ -72,9 +72,7 @@ namespace Galleass.Migrations
 
                     b.Property<string>("ImageURL");
 
-                    b.Property<int>("PortId");
-
-                    b.Property<int?>("PortId1");
+                    b.Property<int?>("PortId");
 
                     b.Property<string>("Type");
 
@@ -86,7 +84,7 @@ namespace Galleass.Migrations
 
                     b.HasKey("GridSquareId");
 
-                    b.HasIndex("PortId1");
+                    b.HasIndex("PortId");
 
                     b.ToTable("GridSquares");
                 });
@@ -141,8 +139,6 @@ namespace Galleass.Migrations
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
-
-                    b.Property<int>("GridSquareId");
 
                     b.Property<string>("PortImageURL");
 
@@ -291,7 +287,7 @@ namespace Galleass.Migrations
                 {
                     b.HasOne("Galleass.Models.Port", "Port")
                         .WithMany()
-                        .HasForeignKey("PortId1");
+                        .HasForeignKey("PortId");
                 });
 
             modelBuilder.Entity("Galleass.Models.Player", b =>

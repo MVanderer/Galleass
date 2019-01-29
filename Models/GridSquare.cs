@@ -18,7 +18,6 @@ namespace Galleass.Models
         //One to many(GridSquare has many players on it.)
         public List<Player> Players {get;set;}
         //One to one(A GridSquare doesn't need a Port.)
-        public int PortId {get;set;}
         public Port Port {get;set;}
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;

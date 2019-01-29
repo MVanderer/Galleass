@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galleass.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190128194038_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20190129163150_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,9 +74,7 @@ namespace Galleass.Migrations
 
                     b.Property<string>("ImageURL");
 
-                    b.Property<int>("PortId");
-
-                    b.Property<int?>("PortId1");
+                    b.Property<int?>("PortId");
 
                     b.Property<string>("Type");
 
@@ -88,7 +86,7 @@ namespace Galleass.Migrations
 
                     b.HasKey("GridSquareId");
 
-                    b.HasIndex("PortId1");
+                    b.HasIndex("PortId");
 
                     b.ToTable("GridSquares");
                 });
@@ -144,9 +142,7 @@ namespace Galleass.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("GridSquareId");
-
-                    b.Property<string>("ImageURL");
+                    b.Property<string>("PortImageURL");
 
                     b.Property<string>("PortName");
 
@@ -190,19 +186,19 @@ namespace Galleass.Migrations
                     b.Property<int>("TradeGoodId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<float>("BasePrice");
-
                     b.Property<DateTime>("CreatedAt");
+
+                    b.Property<float>("GoodBasePrice");
+
+                    b.Property<string>("GoodImageURL");
 
                     b.Property<string>("GoodName");
 
-                    b.Property<string>("ImageURL");
+                    b.Property<int>("GoodVolume");
+
+                    b.Property<int>("GoodWeight");
 
                     b.Property<DateTime>("UpdatedAt");
-
-                    b.Property<int>("Volume");
-
-                    b.Property<int>("Weight");
 
                     b.HasKey("TradeGoodId");
 
@@ -293,7 +289,7 @@ namespace Galleass.Migrations
                 {
                     b.HasOne("Galleass.Models.Port", "Port")
                         .WithMany()
-                        .HasForeignKey("PortId1");
+                        .HasForeignKey("PortId");
                 });
 
             modelBuilder.Entity("Galleass.Models.Player", b =>

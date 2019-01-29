@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Galleass.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,9 +15,8 @@ namespace Galleass.Migrations
                     PortId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PortName = table.Column<string>(nullable: true),
-                    ImageURL = table.Column<string>(nullable: true),
+                    PortImageURL = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    GridSquareId = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
@@ -33,10 +32,10 @@ namespace Galleass.Migrations
                     TradeGoodId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     GoodName = table.Column<string>(nullable: true),
-                    ImageURL = table.Column<string>(nullable: true),
-                    BasePrice = table.Column<float>(nullable: false),
-                    Weight = table.Column<int>(nullable: false),
-                    Volume = table.Column<int>(nullable: false),
+                    GoodImageURL = table.Column<string>(nullable: true),
+                    GoodBasePrice = table.Column<float>(nullable: false),
+                    GoodWeight = table.Column<int>(nullable: false),
+                    GoodVolume = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
@@ -94,8 +93,7 @@ namespace Galleass.Migrations
                     yCoord = table.Column<int>(nullable: false),
                     Type = table.Column<string>(nullable: true),
                     ImageURL = table.Column<string>(nullable: true),
-                    PortId = table.Column<int>(nullable: false),
-                    PortId1 = table.Column<int>(nullable: true),
+                    PortId = table.Column<int>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false)
                 },
@@ -103,8 +101,8 @@ namespace Galleass.Migrations
                 {
                     table.PrimaryKey("PK_GridSquares", x => x.GridSquareId);
                     table.ForeignKey(
-                        name: "FK_GridSquares_Ports_PortId1",
-                        column: x => x.PortId1,
+                        name: "FK_GridSquares_Ports_PortId",
+                        column: x => x.PortId,
                         principalTable: "Ports",
                         principalColumn: "PortId",
                         onDelete: ReferentialAction.Restrict);
@@ -262,9 +260,9 @@ namespace Galleass.Migrations
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GridSquares_PortId1",
+                name: "IX_GridSquares_PortId",
                 table: "GridSquares",
-                column: "PortId1");
+                column: "PortId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Players_GridSquareId",
