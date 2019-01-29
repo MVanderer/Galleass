@@ -158,6 +158,10 @@ namespace Galleass.Controllers
             int xCount = dbContext.GridSquares.Max(x => x.xCoord) + 1;
             int yCount = dbContext.GridSquares.Max(y => y.yCoord) + 1;
             List<List<GridSquare>> Grid = new List<List<GridSquare>>();
+            if(Grid == null)
+            {
+                return "Please make a grid!";
+            }
             for(var i = 0; i < yCount; i++)
             {
                 List<GridSquare> row = dbContext.GridSquares.Where(g => g.yCoord == i).ToList();
