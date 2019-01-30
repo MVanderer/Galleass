@@ -1,23 +1,46 @@
-/*Write all of your CSS here*/
+/* universal element stylings */
 * {
     margin:0;
     padding: 0;
     box-sizing: border-box;
     vertical-align: top;
-    outline: 1px solid red;
+    color:white;
+    font-family: sans-serif;
 }
-/* 
-canvas {
-    background: red;
-} */
-button {
+
+body{
+    background-color: black;
+}
+
+.heroImage{
+    width: 100%;
+}
+
+h1, h2{
+    font-size: 300%;
+    text-align: center;
+    padding:20px;
+}
+
+button{
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; 
+    color:white;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 5px 10px 24px -2px #0a2e54;
 }
 
+button:hover{
+    background-color: #0a2e54;
+}
 button:focus {outline:0;}
+
+/* to migrate to separate files */
+
+/* game world elements */
 
 #menuBtn{
     position: absolute;
@@ -48,7 +71,15 @@ button:focus {outline:0;}
     text-align: right;
 }
 
-
+#dircontrols {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top:0%;
+    left:0%;
+    z-index: 2;
+}
+/* admin elements */
 #adminHeader{
     width: 100%;
     text-align: center;
