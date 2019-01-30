@@ -72,14 +72,14 @@ namespace Galleass.Controllers
                 var userInDb = dbContext.Users.FirstOrDefault(u => u.Email == userSubmission.LoginEmail);
                 if(userInDb == null)
                 {
-                    ModelState.AddModelError("Email", "Invalid Email");
+                    ModelState.AddModelError("LoginEmail", "Invalid Email");
                     return View("LoginReg");
                 }
                 var hasher = new PasswordHasher<LoginUser>();
                 var result = hasher.VerifyHashedPassword(userSubmission, userInDb.Password,userSubmission.LoginPassword);
                 if(result == 0)
                 {
-                    ModelState.AddModelError("Password", "That isn't the correct password for this email address!");
+                    ModelState.AddModelError("LoginPassword", "That isn't the correct password for this email address!");
                     return View("LoginReg");
                 }
                 if(userInDb.Admin == true)
@@ -95,6 +95,8 @@ namespace Galleass.Controllers
             }
             return View("LoginReg");
         }
+
+        // ****ADMINDASHBOARD****
         [HttpGet("/admindashboard")]
         public IActionResult AdminDashboard()
         {
@@ -111,13 +113,18 @@ namespace Galleass.Controllers
             List<Port> allPorts = dbContext.Ports.ToList();
             List<VesselType> allShips = dbContext.VesselTypes.ToList();
             List<TradeGood> allTradeGoods = dbContext.TradeGoods.ToList();
+            List<GridSquare> allIslands = dbContext.GridSquares.ToList();
             ViewBag.Ports = allPorts;
             ViewBag.Ships = allShips;
             ViewBag.TradeGoods = allTradeGoods;
+            ViewBag.Islands = allIslands;
             ViewBag.Admin = userInDb.FirstName + " " + userInDb.LastName;
             List<GridSquare> gridsToMap = dbContext.GridSquares.ToList();
+            ViewBag.xMax = dbContext.GridSquares.Max(x => x.xCoord);
+            ViewBag.yMax = dbContext.GridSquares.Max(y => y.yCoord);
             return View();
         }
+        // ****CREATES NEW MAP****
         [HttpPost("mapsize")]
         public IActionResult MapSize (int mapSizeY, int mapSizeX)
         {
@@ -138,6 +145,7 @@ namespace Galleass.Controllers
             }
             return RedirectToAction("AdminDashboard", "Admin");
         }
+        // ****CREATES PORT****
         [HttpPost("createport")]
         public IActionResult NewPort(Port newPort)
         {
@@ -145,26 +153,90 @@ namespace Galleass.Controllers
             {
                 dbContext.Ports.Add(newPort);
                 dbContext.SaveChanges();
-                return RedirectToAction("AdminDashboard","Admin");
+                return RedirectToAction("AdminDashboard");
             }
             return View("AdminDashboard");
         }
+        [HttpGet("deletePort/{portId}")]
+        public IActionResult DeletePort(int portId)
+        {
+            Port goodbyePort = dbContext.Ports.FirstOrDefault(p => p.PortId == portId);
+            dbContext.Ports.Remove(goodbyePort);
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard","Admin");
+        }
+        // ****GENERATES MAP****
         [HttpGet("wholemap")]
         public string WholeMap()
         {
             int xCount = dbContext.GridSquares.Max(x => x.xCoord) + 1;
             int yCount = dbContext.GridSquares.Max(y => y.yCoord) + 1;
             List<List<GridSquare>> Grid = new List<List<GridSquare>>();
-            if(Grid == null)
-            {
-                return "Please make a grid!";
-            }
             for(var i = 0; i < yCount; i++)
             {
                 List<GridSquare> row = dbContext.GridSquares.Where(g => g.yCoord == i).ToList();
                 Grid.Add(row);
             }
             return JsonConvert.SerializeObject(Grid, Formatting.Indented);
+        }
+        // ****CREATE NEW ISLAND****
+        [HttpPost("newIsland")]
+        public IActionResult NewIsland(int XCoord, int YCoord)
+        {
+            GridSquare newIsland = dbContext.GridSquares.Where(g => g.xCoord == XCoord && g.yCoord == YCoord).FirstOrDefault();
+            newIsland.Type = "land";
+            newIsland.ImageURL = "land-hex.png";
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard","Admin");
+        }
+        [HttpGet("deleteIsland/{gridSquareId}")]
+        public IActionResult DeleteIsland(int gridSquareId)
+        {
+            GridSquare goodbyeIsland = dbContext.GridSquares.FirstOrDefault(g => g.GridSquareId == gridSquareId);
+            goodbyeIsland.Type = "sea";
+            goodbyeIsland.ImageURL = "sea-hex.png";
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard","Admin");
+        }
+        // ****CREATE NEW PORT ISLAND****
+        [HttpPost("newPortIsland")]
+        public IActionResult NewPortIsland(int XCoord, int YCoord, int portId)
+        {
+            GridSquare newPortIsland = dbContext.GridSquares.Where(g => g.xCoord == XCoord && g.yCoord == YCoord).FirstOrDefault();
+            Port addPort = dbContext.Ports.FirstOrDefault(p => p.PortId == portId);
+            newPortIsland.Type = "port";
+            newPortIsland.ImageURL = "port-hex.png";
+            newPortIsland.Port = addPort;
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard", "Admin");
+        }
+        [HttpGet("deletePortIsland/{gridSquareId}")]
+        public IActionResult DeletePortIsland(int gridSquareId)
+        {
+            dbContext.Database.ExecuteSqlCommand($"UPDATE GALLEASS.GridSquares SET PortId = NULL WHERE (GridSquareId = {gridSquareId});");
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard","Admin");
+
+        }
+        // ****CREATE NEW TRADEGOOD****
+        [HttpPost("createTradeGood")]
+        public IActionResult CreateTradeGood(TradeGood newTradeGood)
+        {
+            if(ModelState.IsValid)
+            {
+                dbContext.TradeGoods.Add(newTradeGood);
+                dbContext.SaveChanges();
+                return RedirectToAction ("AdminDashboard", "Admin");
+            }
+            return View("AdminDashboard");
+        }
+        [HttpGet("deleteTradeGood/{tradeGoodId}")]
+        public IActionResult DeleteTradeGood(int tradeGoodId)
+        {
+            TradeGood goodbyeTradeGood = dbContext.TradeGoods.FirstOrDefault(t => t.TradeGoodId == tradeGoodId);
+            dbContext.TradeGoods.Remove(goodbyeTradeGood);
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard", "Admin");
         }
         [HttpGet("logout")]
         public IActionResult Logout()

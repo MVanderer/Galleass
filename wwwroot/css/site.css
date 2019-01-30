@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     vertical-align: top;
+    outline: 1px solid red;
 }
 /* 
 canvas {
@@ -79,7 +80,7 @@ button:focus {outline:0;}
     background-color: gold;
 }
 #db{
-    width: 90%;
+    width: 100%;
     margin: 1% auto;
     border: 5px solid brown;
 }
@@ -88,7 +89,7 @@ button:focus {outline:0;}
     display: inline-block;
     border: 1px solid black;
     font-size: 125%;
-    margin:  .5% 2% .5% 2.5%;
+    margin: 1%;
 }
 table{
     width: 100%;
@@ -102,7 +103,7 @@ table{
     
 }
 #adminMain{
-    width: 60%;
+    width: 75%;
     display: inline-block;
     margin: 1%;
     background-image:url("../img/admin-map.jpg");
@@ -128,4 +129,13 @@ table{
     left:0%;
     z-index: 2;
 }
-
+@media only screen and (min-width : 1224px) and (max-width : 1439px) {
+    #adminAside input{
+        font-size: 60%;
+    }
+}
+@media only screen  and (min-width : 1440px) and (max-width : 1919px) {
+    #adminAside input{
+        font-size: 70%;
+    }
+}

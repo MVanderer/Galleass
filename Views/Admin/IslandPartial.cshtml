@@ -1,0 +1,17 @@
+@using Galleass.Models
+@model GridSquare
+<form asp-action="NewIsland" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="xCoord"></span><br>
+        <label for="xCoord">xCoord:</label><br>
+        <input type="number" min="0" max="@ViewBag.xMax" name="xCoord">
+    </div>
+    <div>
+        <span asp-validation-for="yCoord"></span><br>
+        <label for="yCoord">yCoord:</label><br>
+        <input type="number" min="0" max="@ViewBag.yMax" name="yCoord">
+    </div>
+    <div>
+        <input class="submit" type="submit" value="Create Island">
+    </div>
+</form>

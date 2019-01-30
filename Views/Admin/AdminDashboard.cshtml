@@ -25,6 +25,14 @@
         <h3>Create a Supply:</h3>
         <partial name="SupplyPartial"></partial>
     </div>
+    <div class="aside" id="islandPortMaker">
+        <h3>Create an Port Island</h3>
+        <partial name="IslandPortPartial" view-data="ViewData"></partial>
+    </div>
+    <div class="aside" id="islandMaker">
+        <h3>Create an Island</h3>
+        <partial name="IslandPartial" view-data="ViewData"></partial>
+    </div>
 
 </aside>
 <div id="adminMain">
@@ -35,17 +43,19 @@
         <h3>Ports:</h3>
         <table>
             <tr>
-                <th>PortId:</th>
-                <th>Name:</th>
-                <th>Image:</th>
-                <th>Description:</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
             </tr>
             @foreach(var p in @ViewBag.Ports)
             {
-                <td>@p.PortId</td>
-                <td>@p.PortName</td>
-                <td>@p.PortImageURL</td>
-                <td>@p.Description</td>
+                <tr>
+                    <td>@p.PortId</td>
+                    <td>@p.PortName</td>
+                    <td>@p.Description</td>
+                    <td><a href="/deletePort/@p.PortId">Delete</a></td>
+                </tr>
             }
         </table>
     </div>
@@ -54,21 +64,23 @@
     
         <table>
             <tr>
-                <th>TradeGoodId:</th>
-                <th>Name:</th>
-                <th>ImageURL:</th>
-                <th>Base Price:</th>
-                <th>Weight:</th>
-                <th>Volume:</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Base Price</th>
+                <th>Weight</th>
+                <th>Volume</th>
+                <th>Action</th>
             </tr>
             @foreach(var g in @ViewBag.TradeGoods)
             {
-                <td>@g.TradeGoodId</td>
-                <td>@g.GoodName</td>
-                <td>@g.GoodImageURL</td>
-                <td>@g.GoodBasePrice</td>
-                <td>@g.GoodWeight</td>
-                <td>@g.GoodVolume</td>
+                <tr>
+                    <td>@g.TradeGoodId</td>
+                    <td>@g.GoodName</td>
+                    <td>@g.GoodBasePrice</td>
+                    <td>@g.GoodWeight</td>
+                    <td>@g.GoodVolume</td>
+                    <td><a href="/deleteTradeGood/@g.TradeGoodId">Delete</a></td>
+                </tr>
             }
         </table>
 
@@ -77,23 +89,79 @@
         <h3>Ships:</h3>
         <table>
             <tr>
-                <th>Vessel Id:</th>
-                <th>Name:</th>
-                <th>Cargo Space:</th>
-                <th>Top Speed:</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Cargo Space</th>
+                <th>Top Speed</th>
                 <th>Oars</th>
-                <th>Min Crew:</th>
-                <th>Max Cerw:</th>
+                <th>Min Crew</th>
+                <th>Max Cerw</th>
+                <th>Action</th>
             </tr>
             @foreach(var s in @ViewBag.Ships)
             {
-                <td>@s.VesselTypeId</td>
-                <td>@s.TypeName</td>
-                <td>@s.CargoSpace</td>
-                <td>@s.TopSpeed</td>
-                <td>@s.Oars</td>
-                <td>@s.MinCrew</td>
-                <td>@s.MaxCrew</td>
+                <tr>
+                    <td>@s.VesselTypeId</td>
+                    <td>@s.TypeName</td>
+                    <td>@s.CargoSpace</td>
+                    <td>@s.TopSpeed</td>
+                    <td>@s.Oars</td>
+                    <td>@s.MinCrew</td>
+                    <td>@s.MaxCrew</td>
+                    <td><a href="/deleteVesselType/@s.VesselTypeId">Delete</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <h3>Islands with Ports:</h3>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>xCoord</th>
+                <th>yCoord</th>
+                <th>Type</th>
+                <th>PortId</th>
+                <th>Action</th>
+            </tr>
+            @foreach(var i in @ViewBag.Islands)
+            {
+                if(@i.Port != null)
+                {
+                    <tr>
+                        <td>@i.GridSquareId</td>
+                        <td>@i.xCoord</td>
+                        <td>@i.yCoord</td>
+                        <td>@i.Type</td>
+                        <td>@i.Port.PortId</td>
+                        <td><a href="/deletePortIsland/@i.GridSquareId">Delete</a></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div>
+        <h3>Islands:</h3>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>xCoord</th>
+                <th>yCoord</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+            @foreach(var i in @ViewBag.Islands)
+            {
+                if(@i.Port == null && @i.Type == "land")
+                {
+                    <tr>
+                        <td>@i.GridSquareId</td>
+                        <td>@i.xCoord</td>
+                        <td>@i.yCoord</td>
+                        <td>@i.Type</td>
+                        <td><a href="/deleteIsland/@i.GridSquareId">Delete</a></td>
+                    </tr>
+                }
             }
         </table>
     </div>
