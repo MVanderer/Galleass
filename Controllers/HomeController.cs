@@ -39,25 +39,23 @@ namespace Galleass.Controllers
 
         [HttpGet("Port")]
         public IActionResult Port(){
-            return View("Port/PortMain");
-        }
-
-        [HttpGet("Wharf")]
-        public IActionResult PortWarf(){
+            ViewBag.PortName = "Arthur";
             
-            return View("Port/PortWharf");
+            List<string> SoldGoods=new List<string>();
+            SoldGoods.Add("Food");
+            SoldGoods.Add("Fresh Water");
+            SoldGoods.Add("Textiles");
+            SoldGoods.Add("Spices");
+            ViewBag.SoldGoods=SoldGoods;
+            List<string> PlayerCargo=new List<string>();
+            PlayerCargo.Add("Food");
+            PlayerCargo.Add("Fresh Water");
+            PlayerCargo.Add("Textiles");
+            PlayerCargo.Add("Spices");
+            ViewBag.PlayerCargo=PlayerCargo;
+            
+            return View("PortMain");
         }
-
-        [HttpGet("Tavern")]
-        public IActionResult PortTavern(){
-            return View("Port/PortTavern");
-        }
-
-        [HttpGet("Market")]
-        public IActionResult PortMarket(){
-            return View("Port/PortMarket");
-        }
-
 
     }
 }
