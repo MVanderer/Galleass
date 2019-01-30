@@ -14,17 +14,17 @@
     <div>
         <span asp-validation-for="GoodBasePrice"></span><br>
         <label asp-for="GoodBasePrice"></label><br>
-        <input asp-for="GoodBasePrice">
+        <input asp-for="GoodBasePrice" min="0">
     </div>
     <div>
         <span asp-validation-for="GoodWeight"></span><br>
         <label asp-for="GoodWeight"></label><br>
-        <input asp-for="GoodWeight">
+        <input asp-for="GoodWeight" min="0">
     </div>
     <div>
         <span asp-validation-for="GoodVolume"></span><br>
         <label asp-for="GoodVolume"></label><br>
-        <input asp-for="GoodVolume">
+        <input asp-for="GoodVolume" min="0">
     </div>
     <div>
         <input class="submit" type="submit" value="Create TradeGood">
