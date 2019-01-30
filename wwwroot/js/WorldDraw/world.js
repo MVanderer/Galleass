@@ -39,11 +39,14 @@ class gameMap {
 
     drawGrid(xPos, yPos, horRange, vertRange, xOffset = 0, yOffset = 0) {
         //Odd-Q!!! Very important.“odd-q” vertical layout shoves odd columns down
-        xOffset = xOffset * (3 / 2) * size;
+        xOffset = xOffset * ((3 / 2) * size);
         if (xPos % 2 != 0) {
-            yOffset = yOffset * (Math.sqrt(3) * size);
+            yOffset = yOffset * (Math.sqrt(3) * size)*(-1+0.5);
         }
-        let x = (canvas.width / 2) + xOffset;
+        else {
+            yOffset = yOffset * (Math.sqrt(3) * size)*(-1-0.5);
+        }
+        let x = (canvas.width / 2) - xOffset;
         let y = (canvas.height / 2) + yOffset;
         for (let ver = 0 - vertRange; ver <= vertRange; ver++) {
             for (let hor = 0 - horRange; hor <= horRange; hor++) {
@@ -104,22 +107,38 @@ document.addEventListener("keydown", (e) => {
     }
     else if (e.code == "ArrowRight") {
         if (currentX < myMap.width) {
-            currentX++;
+            if (!shifting){
+                direction="right";
+                currentX++;
+                shifting=true
+            }
         }
     }
     else if (e.code == "ArrowLeft") {
         if (currentX > 0) {
+            if (!shifting){
+                direction="left";
             currentX--;
+            shifting=true;
+            }
         }
     }
     else if (e.code == "ArrowUp") {
         if (currentY > 0) {
+            if (!shifting){
+                direction="up";
+                shifting=true
             currentY--;
+            }
         }
     }
     else if (e.code == "ArrowDown") {
         if (currentY < myMap.height) {
+            if (!shifting){
+                direction="down";
+                shifting=true
             currentY++;
+            }
         }
     }
 });
@@ -149,11 +168,11 @@ function drawHex(xCoord, yCoord, sideSize, type, url = "sea-hex.png", arrX = "",
         c.fillStyle = "rgba(49, 88, 88, 0.404)";
         c.fill();
     }
-    else if (type == "land") {
-        c.fillStyle = "rgb(21, 112, 41)";
-        c.fill();
+    // else if (type == "land") {
+    //     c.fillStyle = "rgb(21, 112, 41)";
+    //     c.fill();
 
-    }
+    // }
     else {
         c.strokeStyle = "#fa34a3";
         c.stroke();
@@ -172,11 +191,10 @@ let size = 50;
 
 let currentX = 0;
 let currentY = 0;
+let currentOffsetX=0;
+let currentOffsetY=0;
+let direction="none";
 let shifting = false;
-
-function shift() {
-
-}
 
 console.log(myMap);
 drawHex(0, 0, size, "sea", "sea-hex.png");
@@ -201,12 +219,17 @@ function animate() {
         size = canvas.height / 13;
     }
 
+    if (shifting){
+        
+    }
+
+    myMap.drawGrid(currentX, currentY, 4, 4, currentOffsetX, currentOffsetY);
     if (showingCoords) {
-        c.rect(canvas.width / 2, canvas.height / 2, 1, 1);
+        c.rect(canvas.width / 2, canvas.height / 2, 3, 3);
+        c.strokeStyle="red";
         c.stroke();
     }
-    myMap.drawGrid(currentX, currentY, 4, 4, 0, 0);
-
+    
 }
 animate();
 // drawHex(canvas.width / 2, canvas.height / 2, size, "land", "");

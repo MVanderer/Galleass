@@ -1,0 +1,171 @@
+body {
+    background-image: url("/img/PortHero.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+h2{
+    position: fixed;
+    top:30px;
+    text-shadow: 2px 5px #000000;
+    font-size: 500%;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top:0;
+    width:100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(38, 120, 193, 0.708);
+}
+
+.modalContent{
+    background-color: black;
+    margin:3% auto;
+    padding: 20px;
+    width: 90%;
+    border-radius: 5px;
+    height: 80%;
+}
+
+#portOptions{
+    position: fixed;
+    bottom: 12%;
+    padding:30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#portOptions button{
+    padding: 10px;
+    font-size: 200%;
+    width: 20%;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+}
+.modalContent div:first-child * {
+    display: inline-block;
+}
+
+.modalContent div:first-child h3 {
+    font-size: 400%;
+}
+
+.modalContent div:first-child button {
+    padding:10px 30px;
+    color: red;
+    border-radius:50%;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+#wharfModal .modalContent {
+    background-image: url("/img/WharfHero.jpg");
+}
+
+#tavernModal .modalContent {
+    background-image: url("/img/TavernHero.jpg");
+}
+
+#marketModal .modalContent {
+    background-image: url("/img/MarketHero.jpg");
+}
+
+#marketModal .modalContent, #tavernModal .modalContent, #wharfModal .modalContent {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+}
+
+#wharfModal .modalContent div:last-child  {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40%;
+    padding:5%;
+}
+#wharfModal .modalContent  div:last-child button {
+    font-size: 200%;
+    padding:20px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+#marketModal div:nth-child(2):not(#goodToTrade){
+    /* border: 1px solid red; */
+    display: flex;
+    height: 80%;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+
+#buyGoods, #sellGoods, #goodToTrade{
+    width: 30%;
+}
+#buyGoods, #sellGoods, #goodToTrade{
+    height: 100%;
+    background-color: #00000082;
+    display: inline-block;
+    padding:2%;
+    overflow: auto;
+}
+
+#buyGoods ul *, #sellGoods ul * {
+    display: block;
+    font-size: 120%;
+    margin-bottom: 10px;
+}
+
+#tradeWelcome{
+    width: 100%
+}
+
+#tradeWelcome, #tradeWelcome * {
+    display: block;
+}
+
+#tradeWelcome p {
+    font-size: 120%;
+    margin-bottom: 1%;
+}
+
+h4 {
+    margin-bottom: 3%;
+    font-size: 150%;
+    text-align: center;
+}
+#sellGoods h4{
+    text-align: right;
+}
+
+li{
+    cursor: pointer;
+}
+
+#sellForm, #buyForm, tradeWelcome{
+    transition: 0.5s;
+}
+#goodToTrade #sellForm, #buyForm{
+    display: none;
+    height: 0;
+}
+
+form * {
+    margin-bottom: 10px;
+    font-size: 100%;
+    padding:5px;
+    display: block;
+}
+
+input {
+    color: black;
+
+}

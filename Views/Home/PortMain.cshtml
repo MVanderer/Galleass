@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="~/css/port.css">
+<h2>PORT @ViewBag.PortName</h2>
+
+
+<div id="portOptions">
+    <button onclick="openModal('wharf')">Shipyard</button>
+    <button onclick="openModal('tavern')">Tavern</button>
+    <button onclick="openModal('market')">Market</button>
+</div>
+
+<!-- <img src="~/img/PortHero.jpg" alt="Port" class="heroImage"> -->
+<div class="modal" id="wharfModal" onclick="closeAllModals()">
+    <div class="modalContent" onclick="event.stopPropagation(); window.event.cancelBubble=true">
+        <div class="modalHeader">
+            <h3>Shipyard</h3>
+            <button onclick="closeAllModals()">X</button>
+        </div>
+        <div>
+            <button>Ship Choice 1</button>
+            <button>Ship Choice 2</button>
+            <button>Ship Choice 3</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal" id="tavernModal" onclick="closeAllModals()">
+    <div class="modalContent" onclick="event.stopPropagation(); window.event.cancelBubble=true">
+        <div class="modalHeader">
+        <h3>Tavern</h3>
+        <button onclick="closeAllModals()">X</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="marketModal" onclick="closeAllModals()">
+    <div class="modalContent" onclick="event.stopPropagation(); window.event.cancelBubble=true">
+        <div class="modalHeader">
+            <h3>Market</h3>
+            <button onclick="closeAllModals()">X</button>
+        </div>
+        <div>
+            <div id="buyGoods">
+                <h4>Goods sold at this port</h4>
+                <ul>
+                    @foreach(var good in ViewBag.SoldGoods){
+                        <li onclick="buyGoodById('@good')">@good</li>
+                    }
+                </ul>
+            </div>
+            <div id="goodToTrade">
+                <div id="tradeWelcome">
+                    <h4>Buy goods or sell cargo</h4>
+                    <p>Roll on up, for my price is down</p>
+                    <p>Come on in for the best in town</p>
+                    <p>Take your pick of the finest wine</p>
+                    <p>Lay your bets on this bird of mine</p>
+                    <p>&nbsp</p>
+                    <p>Name your price, I got everything</p>
+                    <p>Hurry it's going fast</p>
+                    <p>Borrow cash on the finest terms</p>
+                    <p>Hurry now while stocks still last</p>
+                </div>
+                <div id="sellForm">
+                </div>
+                <div id="buyForm">
+                </div>
+            </div>
+            <div id="sellGoods">
+                <h4>Your cargo</h4>
+
+                <ul>
+                    @foreach(var good in ViewBag.PlayerCargo){
+                        <li>@good</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/WorldDraw/port.js"></script>

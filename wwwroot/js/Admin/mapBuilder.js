@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             for (let cell=0;cell<worldMap[0].length;cell++){
                 let xOrig=cell*width;
                 let yOrig=row*height;
+                
                 c.rect(xOrig,yOrig,xOrig+width,yOrig+height);
                 c.strokeStyle = "white";
                 c.stroke();
