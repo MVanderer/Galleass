@@ -37,7 +37,7 @@ class gameMap {
         }
     }
 
-    drawGrid(xPos, yPos, horRange, vertRange, xOffset = 0, yOffset = 0) {
+    drawGrid(ctx, xPos, yPos, horRange, vertRange, xOffset = 0, yOffset = 0) {
         //Odd-Q!!! Very important.“odd-q” vertical layout shoves odd columns down
         xOffset = xOffset * ((3 / 2) * size);
         if (xPos % 2 != 0) {
@@ -64,6 +64,7 @@ class gameMap {
                     flip1 = flip2;
                 }
                 drawHex(
+                    ctx,
                     x + hor * (3 / 2) * size,
                     y + (Math.sqrt(3) * size) * flip1,
                     size,
@@ -85,151 +86,46 @@ let newLoc = [
 
 let myMap = new gameMap(9, 12, newLoc);
 
-
-// CANVAS STUFF STARTS HERE
-//All pretty standard stuff, 2D canvas the size of the window, pre-animation frame. NOTE!!! Never not be box-sizing them border-boxes. Otherwise the canvas won't fit.
-let canvas = document.querySelector("canvas")
-let c = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
 //this is just a helper. once the math for checking inside a hex is done, will replace this. Food for thught: maybe check the clicks for being inside of a circle, rather than a hex? Math is simple
-canvas.addEventListener("click", (e) => {
-    console.log("x: " + e.x + ", y: " + e.y);
-});
 
-document.addEventListener("keydown", (e) => {
-    console.log(e);
-    //admin turning 2D coords rendering on and off when G(lower or upper case) is pressed
-    if (e.code == "KeyG") {
-        if (showingCoords) { showingCoords = false; }
-        else { showingCoords = true; }
-    }
-    else if (e.code == "ArrowRight") {
-        if (currentX < myMap.width) {
-            if (!shifting){
-                direction="right";
-                currentX++;
-                shifting=true
-            }
-        }
-    }
-    else if (e.code == "ArrowLeft") {
-        if (currentX > 0) {
-            if (!shifting){
-                direction="left";
-            currentX--;
-            shifting=true;
-            }
-        }
-    }
-    else if (e.code == "ArrowUp") {
-        if (currentY > 0) {
-            if (!shifting){
-                direction="up";
-                shifting=true
-            currentY--;
-            }
-        }
-    }
-    else if (e.code == "ArrowDown") {
-        if (currentY < myMap.height) {
-            if (!shifting){
-                direction="down";
-                shifting=true
-            currentY++;
-            }
-        }
-    }
-});
-
-function drawHex(xCoord, yCoord, sideSize, type, url = "sea-hex.png", arrX = "", arrY = "") {
+function drawHex(ctx, xCoord, yCoord, sideSize, type, url = "sea-hex.png", arrX = "", arrY = "") {
+    console.log(ctx);
+    
     let img = new Image();
     img.src = "/img/" + url;
 
     img.onload = () => {
     }
-    c.drawImage(
+    ctx.drawImage(
         img,
         xCoord - sideSize,
         yCoord - (Math.sqrt(3) * sideSize) / 2,
         2 * sideSize,
-        Math.sqrt(3) * sideSize);
+        Math.sqrt(3) * sideSize
+        );
 
 
-    c.beginPath();
-    c.moveTo(xCoord + sideSize * Math.cos(0), yCoord + sideSize * Math.sin(0));
+        ctx.beginPath();
+        ctx.moveTo(xCoord + sideSize * Math.cos(0), yCoord + sideSize * Math.sin(0));
 
     for (let side = 0; side < 7; side++) {
-        c.lineTo(xCoord + sideSize * Math.cos(side * 2 * Math.PI / 6), yCoord + sideSize * Math.sin(side * 2 * Math.PI / 6));
+        ctx.lineTo(xCoord + sideSize * Math.cos(side * 2 * Math.PI / 6), yCoord + sideSize * Math.sin(side * 2 * Math.PI / 6));
     }
 
-    if (type == "port") {
-        c.fillStyle = "rgba(49, 88, 88, 0.404)";
-        c.fill();
-    }
-    // else if (type == "land") {
-    //     c.fillStyle = "rgb(21, 112, 41)";
+    // if (type == "port") {
+    //     c.fillStyle = "rgba(49, 88, 88, 0.404)";
     //     c.fill();
+    // }
+    // else {
+    //     c.strokeStyle = "#fa34a3";
+    //     c.stroke();
 
     // }
-    else {
-        c.strokeStyle = "#fa34a3";
-        c.stroke();
-
-    }
     if (showingCoords) {
-        c.font = "20px Arial";
-        c.fillStyle = "black";
-        c.fillText(arrX + "," + arrY, xCoord, yCoord);
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText(arrX + "," + arrY, xCoord, yCoord);
     }
 
 }
 
-let showingCoords = true;
-let size = 50;
-
-let currentX = 0;
-let currentY = 0;
-let currentOffsetX=0;
-let currentOffsetY=0;
-let direction="none";
-let shifting = false;
-
-console.log(myMap);
-drawHex(0, 0, size, "sea", "sea-hex.png");
-
-function animate() {
-    //basic animation setup
-    requestAnimationFrame(animate);
-
-    var sizeW = window.innerWidth;
-    var sizeH = window.innerHeight;
-    canvas.style.width = sizeW + "px";
-    canvas.style.height = sizeH + "px";
-    var scale = window.devicePixelRatio; // Change to 1 on retina screens to see blurry canvas.
-    canvas.width = sizeW * scale;
-    canvas.height = sizeH * scale;
-
-    c.clearRect(0, 0, innerWidth, innerHeight);
-    //actual animation stuff
-    if (canvas.width > canvas.height) {
-        size = canvas.width / 13;
-    } else {
-        size = canvas.height / 13;
-    }
-
-    if (shifting){
-        
-    }
-
-    myMap.drawGrid(currentX, currentY, 4, 4, currentOffsetX, currentOffsetY);
-    if (showingCoords) {
-        c.rect(canvas.width / 2, canvas.height / 2, 3, 3);
-        c.strokeStyle="red";
-        c.stroke();
-    }
-    
-}
-animate();
-// drawHex(canvas.width / 2, canvas.height / 2, size, "land", "");
