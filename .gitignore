@@ -79,3 +79,5 @@ _[Ss]cripts
 ## DB config ##
 ###############
 appsettings.json
+
+.DS_Store

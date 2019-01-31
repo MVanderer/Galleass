@@ -1,3 +1,5 @@
+@model List<GridSquare>
+<link rel="stylesheet" href="~/css/game.css">
 <button id="menuBtn" onclick="openGameMenu()">=</button>
 
 <div id="gameMenu">
@@ -5,20 +7,19 @@
     <a href="/Ship">Ship Details</a>
 </div>
 
+<div id="dircontrols">
+    <button id="north" onclick="moveNorth()">North</button>
+    <button id="northeast" onclick="moveNorthEast()">NorthEast</button>
+    <button id="northwest" onclick="moveNorthWest()">NorthWest</button>
+    <button id="south" onclick="moveSouth()">South</button>
+    <button id="southwest" onclick="moveSouthWest()">SouthWest</button>
+    <button id="southeast" onclick="moveSouthEast()">SouthEast</button>
+    <!-- <img src="~/img/ship.png" id="ship"> -->
+</div>
+
 <canvas>
     Your browser does not support HTML5 Canvas.
 </canvas>
-<!-- <svg id="dircontrols">
-  <polygon points="200,10 250,190 160,210" style="fill:white;stroke:black;stroke-width:2" />
-
-
-</svg> -->
-
-    <!-- <div>North</div>
-    <div>NorthWest</div>
-    <div>SouthWest</div>
-    <div>South</div>
-    <div>SouthEast</div>
-    <div>NorthEast</div> -->
 
 <script src="~/js/WorldDraw/world.js"></script>
+<script src="~/js/WorldDraw/game.js"></script>
