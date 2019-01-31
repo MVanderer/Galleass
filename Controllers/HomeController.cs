@@ -21,19 +21,73 @@ namespace Galleass.Controllers
         [Route("GameMenu")]
         public IActionResult Index()
         {
+            if(HttpContext.Session.GetInt32("UserId") == null)
+            {
+                return RedirectToAction("LoginReg", "Admin");
+            }
+            int? signedInId = HttpContext.Session.GetInt32("UserId");
+            User SignedIn = dbContext.Users.FirstOrDefault(u => u.UserId == signedInId);
+            List<Player> UserPlayers = dbContext.Players.Where(p => p.UserId == SignedIn.UserId).ToList();
+            ViewBag.Players = UserPlayers;
+            ViewBag.User = SignedIn.FirstName;
             return View();
+        }
+        [HttpGet("newgame/{slot}")]
+        public IActionResult NewGame(int slot)
+        {
+            List<VesselType> vessels = dbContext.VesselTypes.ToList();
+            ViewBag.Vessels = vessels;
+            ViewBag.Player = slot;
+            return View();
+        }
+        [HttpPost("createplayer")]
+        public IActionResult CreatePlayer(Player newPlayer, int Slot)
+        {
+            int? id = HttpContext.Session.GetInt32("UserId");
+            newPlayer.Slot = Slot;
+            VesselType Vessel = dbContext.VesselTypes.FirstOrDefault(v => v.VesselTypeId == newPlayer.VesselTypeId);
+            if(newPlayer.Crew < Vessel.MinCrew || newPlayer.Crew > Vessel.MaxCrew)
+            {
+                newPlayer.Crew = Vessel.MinCrew;
+            }
+            GridSquare PlayerStart = dbContext.GridSquares.FirstOrDefault(g => g.Port.PortName == "Key Largo");
+            newPlayer.GridSquareId = PlayerStart.GridSquareId;
+            newPlayer.UserId = (int)id;
+            dbContext.Players.Add(newPlayer);
+            dbContext.SaveChanges();
+            HttpContext.Session.SetInt32("Player",Slot);
+            return RedirectToAction("World", "Home");
+        }
+        [HttpGet("ContinueGame")]
+        public IActionResult ContinueGame(int Slot)
+        {
+            if(HttpContext.Session.GetInt32("UserId") == null)
+            {
+                return RedirectToAction("LoginReg","Admin");
+            }
+            HttpContext.Session.SetInt32("Player", Slot);
+            return RedirectToAction("World","Home");
         }
 
         [HttpGet("Ship")]
         public IActionResult ShipDetails(){
-            ViewBag.Sailors=34;
-            ViewBag.MinCrew=24;
+            int? slot = HttpContext.Session.GetInt32("Player");
+            Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == slot);
+            ViewBag.Sailors= Playing.Crew;
+            ViewBag.MinCrew= Playing.VesselType.MinCrew;
             ViewBag.Food=30;
             return View();
         }
 
         [HttpGet("World")]
         public IActionResult World(){
+            if(HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("Player") == null)
+            {
+                return RedirectToAction("LoginReg", "Admin");
+            }
+            int? slot = HttpContext.Session.GetInt32("Player");
+            int? id = HttpContext.Session.GetInt32("User");
+            Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == (int)slot && p.UserId == (int)id);
             return View();
         }
 

@@ -12,6 +12,7 @@ namespace Galleass.Models
         public int Wealth {get;set;}
         public string PlayerName {get;set;}
         public string ShipName {get;set;}
+        public int Slot {get;set;}
         public int HullCondition {get;set;}
         public int SailsCondition {get;set;}
         public int RiggingCondition {get;set;}

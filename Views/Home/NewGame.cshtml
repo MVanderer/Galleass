@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using Galleass.Models
+@model Player
+<h1>Create Player</h1>
+<h3>Slot @ViewBag.Player</h3>
+<main>
+    @foreach(var v in @ViewBag.Vessels)
+    {
+        <div class="vessels">
+            <h2>@v.TypeName</h2>
+            <img src="@v.VesselImageURL" alt="@v.TypeName">
+            <p>Max Crew: @v.MaxCrew</p>
+            <p>Min Crew: @v.MinCrew</p>
+            <p>Top Speed: @v.TopSpeed knots</p>
+            <p>Cargo Space: @v.CargoSpace units</p>
+            <p>Oars: @v.Oars</p>
+        </div>
+    }
+    <form asp-action="CreatePlayer" asp-controller="Home" method="Post">
+        <div>
+            <span asp-validation-for="PlayerName"></span><br>
+            <label asp-for="PlayerName"></label><br>
+            <input asp-for="PlayerName">
+        </div>
+        <div>
+            <span asp-validation-for="ShipName"></span><br>
+            <label asp-for="ShipName"></label><br>
+            <input asp-for="ShipName">
+        </div>
+        <div>
+            <span asp-validation-for="VesselTypeId"></span><br>
+            <label asp-for="VesselTypeId">Vessel</label><br>
+            <select asp-for="VesselTypeId">
+                @foreach(var v in @ViewBag.Vessels)
+                {
+                    <option value="@v.VesselTypeId">@v.TypeName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <span asp-validation-for="Crew"></span><br>
+            <label asp-for="Crew"></label><br>
+            <input asp-for="Crew">
+        </div>
+        <div>
+            <input type="hidden" name="Slot" value="@ViewBag.Player">
+            <input type="submit" value="Create Player">
+        </div>
+    </form>
+</main>

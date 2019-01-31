@@ -3,14 +3,16 @@ using System;
 using Galleass.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Galleass.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190131183852_ShipUpdateMig")]
+    partial class ShipUpdateMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,8 +113,6 @@ namespace Galleass.Migrations
                     b.Property<int>("SailsCondition");
 
                     b.Property<string>("ShipName");
-
-                    b.Property<int>("Slot");
 
                     b.Property<DateTime>("UpdateAt");
 
