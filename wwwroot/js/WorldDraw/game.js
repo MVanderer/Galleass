@@ -52,16 +52,10 @@ function movePlayerInDb(originX, originY, rangeX, rangeY) {
 }
 
 function outOfBounds(x, y) {
-    // console.log(x + " " + y);
-    // console.log("x:" + (renderPlan.playerX - 1 + x));
-    // console.log("y:" + (renderPlan.playerY - 1 + y));
-
-    // console.log(renderPlan.layout[renderPlan.playerY - 1]);
 
     x = renderPlan.playerX - 1 + x;
     y = renderPlan.playerY - 1 + y;
 
-    // console.log(renderPlan.layout[y][x]);
 
     if (renderPlan.layout[y][x] != null) {
         return false;
