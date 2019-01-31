@@ -13,13 +13,21 @@ body{
 }
 
 .heroImage{
-    width: 100%;
+    width: 80%;
+    position: absolute;
+    z-index: -1;
+    top: 5%;
+    right: 10%;
 }
 
 h1, h2{
     font-size: 300%;
     text-align: center;
     padding:20px;
+}
+
+h1,h2,h3,h4,h5{
+    font-family: ComicV3i;
 }
 
 button{
@@ -31,6 +39,8 @@ button{
     background-color: black;
     border-radius: 10px;
     box-shadow: 5px 10px 24px -2px #0a2e54;
+    padding:5px;
+    font-size: 100%;
 }
 
 button:hover{
@@ -38,7 +48,29 @@ button:hover{
 }
 button:focus {outline:0;}
 
+@font-face{
+    font-family: ComicV3i;
+    src: url("../fonts/comicv3i-webfont.woff") format("woff")
+}
+
 /* to migrate to separate files */
+
+/* Landing page */
+
+.landingBtns{
+    display: flex;
+    margin-top:44%;
+    padding: 0 20%;
+    z-index: 3;
+    justify-content: space-between;
+}
+
+.landingBtns button{
+    font-size: 300%;
+    padding:5%;
+    min-width: 20%;
+    display: inline-block;
+}
 
 /* game world elements */
 

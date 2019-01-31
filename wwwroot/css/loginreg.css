@@ -1,0 +1,35 @@
+#loginreg{
+    display: flex;
+    justify-content: space-around;
+}
+
+#registration, #login{
+    display: inline-block;
+    width:30%;
+}
+
+#registration *, #login *{
+    width: 100%;
+}
+
+label, input{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+label {
+    font-size: 120%;
+}
+
+input{
+    padding:10px;
+    color:black;
+    border-radius: 5px;
+    font-size: 220%;
+}
+
+button {
+    font-size: 120%;
+    padding: 20px;
+    text-transform: uppercase;
+}

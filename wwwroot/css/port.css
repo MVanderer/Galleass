@@ -51,15 +51,15 @@ h2{
     display: flex;
     justify-content: space-between;
 }
-.modalContent div:first-child * {
+.modalHeader * {
     display: inline-block;
 }
 
-.modalContent div:first-child h3 {
+.modalHeader h3 {
     font-size: 400%;
 }
 
-.modalContent div:first-child button {
+.modalHeader button {
     padding:10px 30px;
     color: red;
     border-radius:50%;
@@ -98,7 +98,7 @@ h2{
     display: inline-block;
 }
 
-#marketModal div:nth-child(2):not(#goodToTrade){
+#marketOptions{
     /* border: 1px solid red; */
     display: flex;
     height: 80%;
@@ -141,9 +141,6 @@ h4 {
     margin-bottom: 3%;
     font-size: 150%;
     text-align: center;
-}
-#sellGoods h4{
-    text-align: right;
 }
 
 li{
