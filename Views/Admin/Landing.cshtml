@@ -1,11 +1,14 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<header>
+<header style="display:none">
     <h1>Welcome to Galleass!</h1>
 </header>
 <main>
-    <img src="#" alt="Galleass">
-    <input type="button" value="Play" onclick="location.href='@Url.Action("LoginReg", "Admin")'" />
-    <input type="button" value="Game Menu" onclick="location.href='@Url.Action("Index","Home")'" />
+    <img src="~/img/GalleasHero.jpg" alt="Galleass" class="heroImage">
+    <div class="landingBtns">
+        <button onclick="location.href='@Url.Action("LoginReg", "Admin")'">Play</button>
+
+        <button onclick="location.href='@Url.Action("Index","Home")'">Game Menu</button>
+    </div>
 </main>
