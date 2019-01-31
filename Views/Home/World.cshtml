@@ -1,4 +1,4 @@
-@model List<GridSquare>
+@model Player
 <link rel="stylesheet" href="~/css/game.css">
 <button id="menuBtn" onclick="openGameMenu()">=</button>
 
@@ -6,6 +6,8 @@
     <a href="/Ship">Ship Details</a>
     <a href="/Ship">Ship Details</a>
 </div>
+
+<img src="~/img/anchor.png" alt="drop anchor" id="anchor">
 
 <div id="dircontrols">
     <button id="north" onclick="movePlayer('north')">North</button>
