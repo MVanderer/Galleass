@@ -52,19 +52,19 @@ function movePlayerInDb(originX, originY, rangeX, rangeY) {
 }
 
 function outOfBounds(x, y) {
-    console.log(x+" "+y);
-    console.log(renderPlan.playerX);
-    console.log(renderPlan.playerY);
-    
-    console.log(renderPlan.layout[renderPlan.playerY][renderPlan.playerX]);
-    console.log(renderPlan.layout[renderPlan.playerY][renderPlan.playerX]);
-    
-    
-    if (renderPlan.layout[renderPlan.playerY-1 + y]) {
+    // console.log(x + " " + y);
+    // console.log("x:" + (renderPlan.playerX - 1 + x));
+    // console.log("y:" + (renderPlan.playerY - 1 + y));
 
-        if (renderPlan.layout[renderPlan.playerY-1 + y][renderPlan.playerX-1 + x]) {
-            return false;
-        }
+    // console.log(renderPlan.layout[renderPlan.playerY - 1]);
+
+    x = renderPlan.playerX - 1 + x;
+    y = renderPlan.playerY - 1 + y;
+
+    // console.log(renderPlan.layout[y][x]);
+
+    if (renderPlan.layout[y][x] != null) {
+        return false;
     }
     else {
         return true;
@@ -73,74 +73,79 @@ function outOfBounds(x, y) {
 
 function movePlayer(direction) {
     directionImg = direction + ".png";
-    console.log(renderPlan);
+    console.log("Current x and y: "+ currentX +" "+ currentY);
     
     switch (direction) {
         case "north":
-            if (!outOfBounds(0, - 1)) {
+        console.log("out:" + outOfBounds(0, - 1));
+        
+        if (!outOfBounds(0, - 1)) {
+            currentY--;
+        }
+        break;
+        case "northeast":
+        if (currentX % 2 == 0) {
+            if (!outOfBounds(1, - 1)) {
+                currentX++;
                 currentY--;
             }
-            break;
-        case "northeast":
-            if (currentX % 2 == 0) {
-                if (!outOfBounds(1, - 1)) {
-                    currentX++;
-                    currentY--;
-                }
+        }
+        else {
+            if (!outOfBounds(1, 0)) {
+                currentX++;
             }
-            else {
-                if (!outOfBounds(1, 0)) {
-                    currentX++;
-                }
-            }
-            break;
+        }
+        break;
         case "northwest":
-            if (currentX % 2 == 0) {
-                if (!outOfBounds(- 1, - 1)) {
-                    currentX--;
-                    currentY--;
-                }
+        if (currentX % 2 == 0) {
+            if (!outOfBounds(- 1, - 1)) {
+                currentX--;
+                currentY--;
             }
-            else {
-                if (!outOfBounds(- 1, 0)) {
-                    currentX--;
-                }
+        }
+        else {
+            if (!outOfBounds(- 1, 0)) {
+                currentX--;
             }
-            break;
+        }
+        break;
         case "south":
-            if (!outOfBounds(0, 1)) {
+        if (!outOfBounds(0, 1)) {
+            currentY++;
+        }
+        break;
+        case "southwest":
+        if (currentX % 2 == 0) {
+            if (!outOfBounds(- 1, - 1)) {
+                currentX--;
+            }
+        }
+        else {
+            if (!outOfBounds(- 1, 1)) {
+                currentY++;
+                currentX--;
+            }
+        }
+        break;
+        case "southeast":
+        if (currentX % 2 == 0) {
+            if (!outOfBounds(1, 0)) {
+                currentX++;
+            }
+        }
+        else {
+            if (!outOfBounds(1, 1)) {
+                currentX++;
                 currentY++;
             }
-            break;
-        case "southwest":
-            if (currentX % 2 == 0) {
-                if (!outOfBounds(- 1, - 1)) {
-                    currentX--;
-                }
-            }
-            else {
-                if (!outOfBounds(- 1, 1)) {
-                    currentY++;
-                    currentX--;
-                }
-            }
-            break;
-        case "southeast":
-            if (currentX % 2 == 0) {
-                if (!outOfBounds(1, 0)) {
-                    currentX++;
-                }
-            }
-            else {
-                if (!outOfBounds(1, 1)) {
-                    currentX++;
-                    currentY++;
-                }
-            } break;
+        } break;
         default:
-            break;
+        break;
     }
+    console.log("Changed x and y: "+ currentX +" "+ currentY);
+
     renderPlan.getGrid(currentX, currentY, xRenderRange, yRenderRange);
+    console.log(renderPlan.layout);
 }
 
 // console.log(myMap);
