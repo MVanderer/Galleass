@@ -29,6 +29,7 @@
     <div class="aside" id="islandPortMaker">
         <h3>Create an Port Island</h3>
         <partial name="IslandPortPartial" view-data="ViewData"></partial>
+        <p>Must create a port before creating an Island!</p>
     </div>
     <div class="aside" id="islandMaker">
         <h3>Create an Island</h3>
@@ -96,7 +97,7 @@
                 <th>Top Speed</th>
                 <th>Oars</th>
                 <th>Min Crew</th>
-                <th>Max Cerw</th>
+                <th>Max Crew</th>
                 <th>Action</th>
             </tr>
             @foreach(var s in @ViewBag.Ships)

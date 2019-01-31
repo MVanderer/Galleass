@@ -11,6 +11,7 @@ namespace Galleass.Models
         public string TypeName {get;set;}
         public int CargoSpace {get;set;}
         public int TopSpeed {get;set;}
+        public string VesselImageURL {get;set;}
         public bool Oars {get;set;}
         public int MinCrew {get;set;}
         public int MaxCrew {get;set;}

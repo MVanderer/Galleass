@@ -122,6 +122,7 @@ namespace Galleass.Controllers
             List<GridSquare> gridsToMap = dbContext.GridSquares.ToList();
             ViewBag.xMax = dbContext.GridSquares.Max(x => x.xCoord);
             ViewBag.yMax = dbContext.GridSquares.Max(y => y.yCoord);
+            ViewBag.portMax = allPorts.Count;
             return View();
         }
         // ****CREATES NEW MAP****
@@ -235,6 +236,27 @@ namespace Galleass.Controllers
         {
             TradeGood goodbyeTradeGood = dbContext.TradeGoods.FirstOrDefault(t => t.TradeGoodId == tradeGoodId);
             dbContext.TradeGoods.Remove(goodbyeTradeGood);
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard", "Admin");
+        }
+
+        // ****CREATES VESSELTYPE****
+        [HttpPost("createship")]
+        public IActionResult CreateShip(VesselType newVessel)
+        {
+            if(ModelState.IsValid)
+            {
+                dbContext.VesselTypes.Add(newVessel);
+                dbContext.SaveChanges();
+                return RedirectToAction("AdminDashboard","Admin");
+            }
+            return View("AdminDashboard");
+        }
+        [HttpGet("deleteVesselType/{VesselTypeId}")]
+        public IActionResult DeleteShip(int vesselTypeId)
+        {
+            VesselType goodbyeVessel = dbContext.VesselTypes.FirstOrDefault(v => v.VesselTypeId == vesselTypeId);
+            dbContext.VesselTypes.Remove(goodbyeVessel);
             dbContext.SaveChanges();
             return RedirectToAction("AdminDashboard", "Admin");
         }
