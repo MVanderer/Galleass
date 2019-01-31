@@ -122,7 +122,7 @@ namespace Galleass.Controllers
                 List<GridSquare> column = new List<GridSquare>();
                 for(int xIdx = OriginX - RangeX; xIdx <= OriginX + RangeX; xIdx ++)
                 {
-                    GridSquare cell = dbContext.GridSquares.FirstOrDefault( g => g.xCoord == xIdx && g.yCoord == yIdx);
+                    GridSquare cell = dbContext.GridSquares.Include(g => g.Port).FirstOrDefault( g => g.xCoord == xIdx && g.yCoord == yIdx);
                     column.Add(cell);
                 }
                 Map.Add(column);
