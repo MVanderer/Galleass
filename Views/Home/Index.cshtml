@@ -2,10 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Galleass</h1>
+<h1>LE GALLEAZZA</h1>
 <main>
-    <h2>Welcome, Captain @ViewBag.User </h2>
-    <img src="" alt="GALLEASS">
+    <h2>Welcome, Admiral @ViewBag.User </h2>
+    <img src="" alt="Le Galleazza"><br>
+    <h3>Please choose a game:</h3>
     
     @{
 
@@ -21,7 +22,7 @@
         {
             foreach(var p in @ViewBag.Players)
             {
-                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button>
+                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button><br>
             }
             for(int i = @ViewBag.Players.Count + 1; i <=3; i++)
             {
@@ -32,7 +33,7 @@
         {
             foreach(var p in @ViewBag.Players)
             {
-                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button>
+                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button><br>
             }
             for(int i = @ViewBag.Players.Count + 1; i <=3; i++)
             {
@@ -45,12 +46,6 @@
             {
                 <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button>
             }
-            for(int i = @ViewBag.Players.Count + 1; i <=3; i++)
-            {
-                <button onclick="location.href='@Url.Action("NewGame", "Home", new {slot = i})'">New Game</button><br>
-            }   
         }
     }
 </main>
-
-<a href="/World">Play</a>

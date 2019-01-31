@@ -53,35 +53,39 @@ namespace Galleass.Controllers
             GridSquare PlayerStart = dbContext.GridSquares.FirstOrDefault(g => g.Port.PortName == "Skokie");
             newPlayer.GridSquareId = PlayerStart.GridSquareId;
             newPlayer.UserId = (int)id;
+            newPlayer.Wealth = 1000;
             dbContext.Players.Add(newPlayer);
             dbContext.SaveChanges();
-            HttpContext.Session.SetInt32("Player",Slot);
+            HttpContext.Session.SetInt32("Wealth", newPlayer.Wealth);
+            HttpContext.Session.SetInt32("PlayerId",Slot);
             return RedirectToAction("World", "Home");
         }
-        [HttpGet("ContinueGame")]
+        [HttpGet("continuegame/{Slot}")]
         public IActionResult ContinueGame(int Slot)
         {
-            if(HttpContext.Session.GetInt32("UserId") == null)
-            {
-                return RedirectToAction("LoginReg","Admin");
-            }
-            HttpContext.Session.SetInt32("Player", Slot);
+            int? id = HttpContext.Session.GetInt32("UserId");
+            System.Console.WriteLine($"this is user id {(int)id}");
+            Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == Slot);
+            HttpContext.Session.SetInt32("Wealth", Playing.Wealth);
+            HttpContext.Session.SetInt32("PlayerId", Playing.Slot);
             return RedirectToAction("World","Home");
         }
 
         [HttpGet("Ship")]
         public IActionResult ShipDetails(){
-            int? slot = HttpContext.Session.GetInt32("Player");
+            int? slot = HttpContext.Session.GetInt32("PlayerId");
             Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == slot);
+            VesselType vessel = dbContext.VesselTypes.FirstOrDefault(v => v.VesselTypeId == Playing.VesselTypeId);
+            ViewBag.Wealth = Playing.Wealth;
             ViewBag.Sailors= Playing.Crew;
-            ViewBag.MinCrew= Playing.VesselType.MinCrew;
+            ViewBag.MinCrew= vessel.MinCrew;
             ViewBag.Food=30;
             return View();
         }
 
         [HttpGet("World")]
         public IActionResult World(){
-            if(HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("Player") == null)
+            if(HttpContext.Session.GetInt32("UserId") == null || HttpContext.Session.GetInt32("PlayerId") == null)
             {
                 return RedirectToAction("LoginReg", "Admin");
             }
