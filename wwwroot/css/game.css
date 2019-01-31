@@ -32,3 +32,8 @@
     top:50%;
     left:50%;
 }
+
+#anchor {
+    position: fixed;
+    max-width: 5%;;
+}
