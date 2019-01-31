@@ -113,6 +113,9 @@ namespace Galleass.Controllers
         [HttpGet("RenderMap/{OriginX}/{OriginY}/{RangeX}/{RangeY}")]
         public String RenderMap(int OriginX, int OriginY, int RangeX, int RangeY)
         {
+            System.Console.WriteLine("Getting map segment");
+            System.Console.WriteLine("*************************************************************");
+            System.Console.WriteLine(OriginX+" "+OriginY);
             List<List<GridSquare>> Map = new List<List<GridSquare>>();
             for(int yIdx = OriginY - RangeY; yIdx <= OriginY + RangeY; yIdx ++)
             {

@@ -12,11 +12,6 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         console.log(canvas.width+" "+canvas.height);
         
 
-        console.log(canvas);
-        console.log(c);
-        
-        
-        
         let worldMap = JSON.parse(xhr.response);
         console.log(worldMap);
 

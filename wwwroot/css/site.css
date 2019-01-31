@@ -12,12 +12,16 @@ body{
     background-color: black;
 }
 
+main{
+    max-height: 80%;
+}
+
 .heroImage{
-    width: 80%;
+    width: 70%;
     position: absolute;
     z-index: -1;
-    top: 5%;
-    right: 10%;
+    top: 0;
+    right: 15%;
 }
 
 h1, h2{
@@ -63,7 +67,7 @@ button:focus {outline:0;}
 
 .landingBtns{
     display: flex;
-    margin-top:44%;
+    margin-top:35%;
     padding: 0 20%;
     z-index: 3;
     justify-content: space-between;
