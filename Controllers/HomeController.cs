@@ -69,6 +69,8 @@ namespace Galleass.Controllers
             Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == Slot);
             HttpContext.Session.SetInt32("Wealth", Playing.Wealth);
             HttpContext.Session.SetInt32("PlayerId", Playing.Slot);
+            HttpContext.Session.SetInt32("X", Playing.GridSquare.xCoord);
+            HttpContext.Session.SetInt32("Y", Playing.GridSquare.yCoord);
             return RedirectToAction("World","Home");
         }
 
@@ -90,10 +92,10 @@ namespace Galleass.Controllers
             {
                 return RedirectToAction("LoginReg", "Admin");
             }
-            int? slot = HttpContext.Session.GetInt32("Player");
-            int? id = HttpContext.Session.GetInt32("User");
+            int? slot = HttpContext.Session.GetInt32("PlayerId");
+            int? id = HttpContext.Session.GetInt32("UserId");
             Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == (int)slot && p.UserId == (int)id);
-            return View();
+            return View(Playing);
         }
 
         [HttpGet("Port")]
@@ -134,6 +136,5 @@ namespace Galleass.Controllers
             }
             return JsonConvert.SerializeObject(Map, Formatting.Indented);
         }
-
     }
 }
