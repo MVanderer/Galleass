@@ -56,8 +56,10 @@ function outOfBounds(x, y) {
     x = renderPlan.playerX - 1 + x;
     y = renderPlan.playerY - 1 + y;
 
-
     if (renderPlan.layout[y][x] != null) {
+        if (renderPlan.layout[y][x].Type=="land"){
+            return true;
+        }
         return false;
     }
     else {
