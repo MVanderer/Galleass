@@ -28,7 +28,7 @@ class renderView {
     }
 
     getGrid(originX, originY, rangeX, rangeY) {
-        console.log("getting grid");
+        // console.log("getting grid");
         
         let xhr = new XMLHttpRequest();
         let url = "/RenderMap/" + originX + "/" + originY + "/" + rangeX + "/" + rangeY;
@@ -71,7 +71,7 @@ class renderView {
         for (let ver = 0; ver < this.layout.length; ver++) {
             for (let hor = 0; hor < this.layout[ver].length; hor++) {
                 let type = "sea";
-                let url = "sea-hex.png";
+                let url = "abyss-hex.png";
                 if (this.layout[ver][hor]) {
                     type = this.layout[ver][hor].Type;
                     url = this.layout[ver][hor].ImageURL;
@@ -79,7 +79,7 @@ class renderView {
                 }
                 let xRange=hor-this.playerX+1;
                 let yRange=ver-this.playerY+1;
-                if ((this.layout[this.playerY][this.playerX]==undefined)){
+                if ((this.layout[this.playerY-1][this.playerX-1]==undefined)){
                     console.log("this.layout[this.playerY][this.playerX]");
                     console.log(this.playerX+" "+this.playerY);
                     
@@ -89,12 +89,12 @@ class renderView {
                 }
 
 
-                let rowCheck = ((this.layout[this.playerY][this.playerX].xCoord) % 2) == 0;
+                let rowCheck = ((this.layout[this.playerY-1][this.playerX-1].xCoord) % 2) == 0;
 
                 let flip1 = (yRange + (0.5 * (Math.abs(xRange) % 2)));
                 let flip2 = (yRange - (0.5 * (Math.abs(xRange) % 2)));
 
-                if (rowCheck) {
+                if (!rowCheck) {
                     flip1 = flip2;
                 }
                 drawHex(
@@ -104,8 +104,8 @@ class renderView {
                     sideLength,
                     type,
                     url,
-                    this.layout[this.playerY][this.playerX].xCoord + xRange-1,
-                    this.layout[this.playerY][this.playerX].yCoord + yRange-1);
+                    this.layout[this.playerY-1][this.playerX-1].xCoord + xRange-1,
+                    this.layout[this.playerY-1][this.playerX-1].yCoord + yRange-1);
             }
         }
     }
