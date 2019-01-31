@@ -9,22 +9,22 @@
     width: 30%;
 }
 #north {
-    top: 0%; left:35%;
+    top: -11%; left:35%;
 }
 #northeast{
-    top:23%; right: 5%; transform: rotate(60deg);
+    top:17%; right: 11%; transform: rotate(60deg);
 }
 #northwest{
-    top:23%; left:5%;transform: rotate(-60deg);
+    top:17%; left:11%;transform: rotate(-60deg);
 }
 #southwest{
-    bottom: 23%; left:5%;transform: rotate(60deg);
+    bottom: 15%; left:11%;transform: rotate(60deg);
 }
 #southeast{
-    bottom: 23%; right:5%; transform: rotate(-60deg);
+    bottom: 15%; right:11%; transform: rotate(-60deg);
 }
 #south{
-    bottom: 0; left: 35%;
+    bottom: -11%; left: 35%;
 }
 
 #ship{

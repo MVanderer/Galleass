@@ -6,7 +6,7 @@ using Galleass.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Newtonsoft.Json;
 
 namespace Galleass.Controllers
 {
@@ -55,6 +55,22 @@ namespace Galleass.Controllers
             ViewBag.PlayerCargo=PlayerCargo;
             
             return View("PortMain");
+        }
+        [HttpGet("RenderMap/{OriginX}/{OriginY}/{RangeX}/{RangeY}")]
+        public String RenderMap(int OriginX, int OriginY, int RangeX, int RangeY)
+        {
+            List<List<GridSquare>> Map = new List<List<GridSquare>>();
+            for(int yIdx = OriginY - RangeY; yIdx <= OriginY + RangeY; yIdx ++)
+            {
+                List<GridSquare> column = new List<GridSquare>();
+                for(int xIdx = OriginX - RangeX; xIdx <= OriginX + RangeX; xIdx ++)
+                {
+                    GridSquare cell = dbContext.GridSquares.FirstOrDefault( g => g.xCoord == xIdx && g.yCoord == yIdx);
+                    column.Add(cell);
+                }
+                Map.Add(column);
+            }
+            return JsonConvert.SerializeObject(Map, Formatting.Indented);
         }
 
     }
