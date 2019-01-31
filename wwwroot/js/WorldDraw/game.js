@@ -8,48 +8,50 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-function moveNorth(){
-    currentY--;
+function movePlayerInDb(originX, originY, rangeX, rangeY) {
+    let xhr = new XMLHttpRequest();
+    let url = "/RenderMap/" + originX + "/" + originY + "/" + rangeX + "/" + rangeY;
+    xhr.onload = () => {
+        let world = JSON.parse(xhr.response);
+        console.log(world);
+
+    }
+
+    xhr.open("GET", url);
+    xhr.send(null);
 }
-function moveNorthEast(){
-    if (currentX%2==0){
-        currentX++;
-        currentY--;
+
+function movePlayer(direction) {
+    switch (direction) {
+        case "north":
+            currentY--;
+
+            break;
+        case "northeast":
+            currentY--;
+
+            break;
+        case "northwest":
+            currentY--;
+
+            break;
+        case "south":
+            currentY--;
+
+            break;
+        case "southwest":
+            currentY--;
+
+            break;
+        case "southeast":
+            currentY--;
+            break;
+        default:
+            break;
     }
-    else {
-        currentX++;
-    }
+    movePlayerInDb(currentX, currentY, xRenderRange, yRenderRange);
 }
-function moveNorthWest(){
-    if (currentX%2==0){
-        currentX--;
-        currentY--;
-    }
-    else {
-        currentX--;
-    }
-}
-function moveSouth(){
-    currentY++;
-}
-function moveSouthWest(){
-    if (currentX%2==0){
-        currentX--;
-    }
-    else {
-        currentY++;
-        currentX--;
-    }
-}
-function moveSouthEast(){
-    if (currentX%2==0){
-        currentX++;
-    }
-    else {
-        currentX++;
-        currentY++;
-    }
-}
+
 
 // CANVAS STUFF STARTS HERE
 //All pretty standard stuff, 2D canvas the size of the window, pre-animation frame. NOTE!!! Never not be box-sizing them border-boxes. Otherwise the canvas won't fit.
@@ -67,9 +69,11 @@ let size = 50;
 
 let currentX = 0;
 let currentY = 0;
-let currentOffsetX=0;
-let currentOffsetY=0;
-let direction="none";
+let xRenderRange = 4;
+let yRenderRange = 4;
+let currentOffsetX = 0;
+let currentOffsetY = 0;
+let direction = "none";
 let shifting = false;
 
 console.log(myMap);
@@ -94,16 +98,16 @@ function animate() {
         size = canvas.height / 13;
     }
 
-    if (shifting){
-        
+    if (shifting) {
+
     }
 
-    myMap.drawGrid(c, currentX, currentY, 4, 4, currentOffsetX, currentOffsetY);
+    myMap.drawGrid(c, currentX, currentY, xRenderRange, yRenderRange, currentOffsetX, currentOffsetY);
     if (showingCoords) {
         c.rect(canvas.width / 2, canvas.height / 2, 3, 3);
-        c.strokeStyle="red";
+        c.strokeStyle = "red";
         c.stroke();
     }
-    
+
 }
 animate();

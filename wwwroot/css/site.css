@@ -52,6 +52,10 @@ button:focus {outline:0;}
     font-family: ComicV3i;
     src: url("../fonts/comicv3i-webfont.woff") format("woff")
 }
+@font-face{
+    font-family: NeueHammerUnziale;
+    src: url("../fonts/NeueHammerUnziale2.woff") format("woff")
+}
 
 /* to migrate to separate files */
 
