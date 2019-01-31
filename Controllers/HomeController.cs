@@ -59,6 +59,8 @@ namespace Galleass.Controllers
             dbContext.SaveChanges();
             HttpContext.Session.SetInt32("Wealth", newPlayer.Wealth);
             HttpContext.Session.SetInt32("PlayerId",Slot);
+            HttpContext.Session.SetInt32("X",PlayerStart.xCoord);
+            HttpContext.Session.SetInt32("Y", PlayerStart.yCoord);
             return RedirectToAction("World", "Home");
         }
         [HttpGet("continuegame/{Slot}")]
@@ -67,10 +69,11 @@ namespace Galleass.Controllers
             int? id = HttpContext.Session.GetInt32("UserId");
             System.Console.WriteLine($"this is user id {(int)id}");
             Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == Slot);
+            GridSquare location = dbContext.GridSquares.FirstOrDefault(g => g.GridSquareId == Playing.GridSquareId);
             HttpContext.Session.SetInt32("Wealth", Playing.Wealth);
             HttpContext.Session.SetInt32("PlayerId", Playing.Slot);
-            HttpContext.Session.SetInt32("X", Playing.GridSquare.xCoord);
-            HttpContext.Session.SetInt32("Y", Playing.GridSquare.yCoord);
+            HttpContext.Session.SetInt32("X",location.xCoord);
+            HttpContext.Session.SetInt32("Y", location.yCoord);
             return RedirectToAction("World","Home");
         }
 
