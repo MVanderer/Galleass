@@ -1,3 +1,33 @@
+// CANVAS Initialization
+// context to be passed into functions
+let canvas = document.querySelector("canvas")
+let c = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// canvas.addEventListener("click", (e) => {
+//     console.log("x: " + e.x + ", y: " + e.y);
+// });
+
+let showingCoords = false;
+
+let size = 50;//will need to calculate based on size and range
+
+let currentX = 0;// will change, 
+let currentY = 0;// dependent on the player
+
+let xRenderRange = 4;//same as size
+let yRenderRange = 4;//change later
+
+let currentOffsetX = 0;//this is for animating
+let currentOffsetY = 0;//movement.
+let directionImg = "southwest.png";
+let shifting = false;
+
+//this is the actual meat of the rendering pipeline
+let renderPlan = new renderView(currentX, currentY, xRenderRange, yRenderRange);
+console.log(renderPlan);
+
 //User controls section
 document.addEventListener("keydown", (e) => {
     console.log(e);
@@ -13,7 +43,7 @@ function movePlayerInDb(originX, originY, rangeX, rangeY) {
     let url = "/RenderMap/" + originX + "/" + originY + "/" + rangeX + "/" + rangeY;
     xhr.onload = () => {
         let world = JSON.parse(xhr.response);
-        console.log(world);
+        return world;
 
     }
 
@@ -21,62 +51,97 @@ function movePlayerInDb(originX, originY, rangeX, rangeY) {
     xhr.send(null);
 }
 
+function outOfBounds(x, y) {
+    console.log(x+" "+y);
+    console.log(renderPlan.playerX);
+    console.log(renderPlan.playerY);
+    
+    console.log(renderPlan.layout[renderPlan.playerY][renderPlan.playerX]);
+    console.log(renderPlan.layout[renderPlan.playerY][renderPlan.playerX]);
+    
+    
+    if (renderPlan.layout[renderPlan.playerY-1 + y]) {
+
+        if (renderPlan.layout[renderPlan.playerY-1 + y][renderPlan.playerX-1 + x]) {
+            return false;
+        }
+    }
+    else {
+        return true;
+    }
+}
+
 function movePlayer(direction) {
+    directionImg = direction + ".png";
     switch (direction) {
         case "north":
-            currentY--;
-
+            if (!outOfBounds(0, - 1)) {
+                currentY--;
+            }
             break;
         case "northeast":
-            currentY--;
-
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(1, - 1)) {
+                    currentX++;
+                    currentY--;
+                }
+            }
+            else {
+                if (!outOfBounds(1, 0)) {
+                    currentX++;
+                }
+            }
             break;
         case "northwest":
-            currentY--;
-
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(- 1, - 1)) {
+                    currentX--;
+                    currentY--;
+                }
+            }
+            else {
+                if (!outOfBounds(- 1, 0)) {
+                    currentX--;
+                }
+            }
             break;
         case "south":
-            currentY--;
-
+            if (!outOfBounds(0, 1)) {
+                currentY++;
+            }
             break;
         case "southwest":
-            currentY--;
-
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(- 1, - 1)) {
+                    currentX--;
+                }
+            }
+            else {
+                if (!outOfBounds(- 1, 1)) {
+                    currentY++;
+                    currentX--;
+                }
+            }
             break;
         case "southeast":
-            currentY--;
-            break;
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(1, 0)) {
+                    currentX++;
+                }
+            }
+            else {
+                if (!outOfBounds(1, 1)) {
+                    currentX++;
+                    currentY++;
+                }
+            } break;
         default:
             break;
     }
-    movePlayerInDb(currentX, currentY, xRenderRange, yRenderRange);
+    renderPlan.getGrid(currentX, currentY, xRenderRange, yRenderRange);
 }
 
-
-// CANVAS STUFF STARTS HERE
-//All pretty standard stuff, 2D canvas the size of the window, pre-animation frame. NOTE!!! Never not be box-sizing them border-boxes. Otherwise the canvas won't fit.
-let canvas = document.querySelector("canvas")
-let c = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-canvas.addEventListener("click", (e) => {
-    console.log("x: " + e.x + ", y: " + e.y);
-});
-
-let showingCoords = true;
-let size = 50;
-
-let currentX = 0;
-let currentY = 0;
-let xRenderRange = 4;
-let yRenderRange = 4;
-let currentOffsetX = 0;
-let currentOffsetY = 0;
-let direction = "none";
-let shifting = false;
-
-console.log(myMap);
+// console.log(myMap);
 
 function animate() {
     //basic animation setup
@@ -101,8 +166,28 @@ function animate() {
     if (shifting) {
 
     }
+    if (renderPlan.layout) {
+        renderPlan.render(
+            c,
+            canvas.width,
+            canvas.height,
+            size,
+            currentOffsetX,
+            currentOffsetY);
 
-    myMap.drawGrid(c, currentX, currentY, xRenderRange, yRenderRange, currentOffsetX, currentOffsetY);
+    }
+    let shipAvatar = new Image();
+    shipAvatar.src = "/img/gal-avatar/" + directionImg;
+    c.drawImage(
+        shipAvatar,
+        canvas.width / 2 - size,
+        canvas.height / 2 - (Math.sqrt(3) * size) / 2,
+        2 * size,
+        Math.sqrt(3) * size
+    )
+
+    // myMap.drawGrid(c, currentX, currentY, xRenderRange, yRenderRange, currentOffsetX, currentOffsetY);
+
     if (showingCoords) {
         c.rect(canvas.width / 2, canvas.height / 2, 3, 3);
         c.strokeStyle = "red";
