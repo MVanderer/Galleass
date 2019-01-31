@@ -73,6 +73,8 @@ function outOfBounds(x, y) {
 
 function movePlayer(direction) {
     directionImg = direction + ".png";
+    console.log(renderPlan);
+    
     switch (direction) {
         case "north":
             if (!outOfBounds(0, - 1)) {

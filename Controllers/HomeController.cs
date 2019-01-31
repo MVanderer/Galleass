@@ -50,7 +50,7 @@ namespace Galleass.Controllers
             {
                 newPlayer.Crew = Vessel.MinCrew;
             }
-            GridSquare PlayerStart = dbContext.GridSquares.FirstOrDefault(g => g.Port.PortName == "Key Largo");
+            GridSquare PlayerStart = dbContext.GridSquares.FirstOrDefault(g => g.Port.PortName == "Skokie");
             newPlayer.GridSquareId = PlayerStart.GridSquareId;
             newPlayer.UserId = (int)id;
             dbContext.Players.Add(newPlayer);
