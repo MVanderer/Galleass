@@ -103,8 +103,15 @@ namespace Galleass.Controllers
             return View(Playing);
         }
 
-        [HttpGet("Port")]
-        public IActionResult Port(){
+        [HttpGet("Port/{portId}")]
+        public IActionResult PortMain(int portId){
+            Port myPort = dbContext.Ports
+            .Include(p=>p.PortPrices)
+            .ThenInclude(pp=>pp.TradeGood)
+            .FirstOrDefault(p=>p.PortId==portId);
+
+            System.Console.WriteLine("****************************************************");
+            System.Console.WriteLine(myPort);
             ViewBag.PortName = "Arthur";
             
             List<string> SoldGoods=new List<string>();
@@ -120,8 +127,9 @@ namespace Galleass.Controllers
             PlayerCargo.Add("Spices");
             ViewBag.PlayerCargo=PlayerCargo;
             
-            return View("PortMain");
+            return View(myPort);
         }
+
         [HttpGet("RenderMap/{OriginX}/{OriginY}/{RangeX}/{RangeY}")]
         public String RenderMap(int OriginX, int OriginY, int RangeX, int RangeY)
         {

@@ -8,7 +8,7 @@ function openGameMenu(){
         menuOpen=false;
     }
     else{
-        menu.style.width="35%";
+        menu.style.width="20%";
         menu.style.paddingLeft="10px";
         menu.style.paddingRight="10px";
         menuOpen=true;

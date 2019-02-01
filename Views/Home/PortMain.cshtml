@@ -1,6 +1,10 @@
+@using Galleass.Models
+@model Port
 <link rel="stylesheet" href="~/css/port.css">
-<h2>PORT @ViewBag.PortName</h2>
+<h2>Port: @Model.PortName</h2>
 
+<a href="/World">
+<h3 id="leave">Leave Port</h3></a>
 
 <div id="portOptions">
     <button onclick="openModal('wharf')">Shipyard</button>

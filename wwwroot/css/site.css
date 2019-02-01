@@ -107,45 +107,6 @@ button:focus {outline:0;}
     text-align: center;
 }
 
-/* game world elements */
-
-#menuBtn{
-    position: absolute;
-    top:10px;
-    right: 10px;
-    font-size: 200%;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: black;
-    color: white;
-    z-index: 3;
-}
-
-#gameMenu {
-    position: fixed;
-    top:0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.468);
-    z-index: 1;
-    transition: 0.5s;
-    width: 0;
-    height: 100%;
-    padding-top: 80px;
-}
-
-#gameMenu *{
-    display: block;
-    text-align: right;
-}
-
-#dircontrols {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top:0%;
-    left:0%;
-    z-index: 2;
-}
 /* admin elements */
 #adminHeader{
     width: 100%;

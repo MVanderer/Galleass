@@ -12,6 +12,16 @@ h2{
     font-size: 500%;
 }
 
+#leave{
+    position: fixed;
+    top:30px;
+    right:3%;
+    border: 1px solid black;
+    padding: 30px;
+    text-align: center;
+    border-radius: 50%;
+}
+
 .modal {
     display: none;
     position: fixed;
