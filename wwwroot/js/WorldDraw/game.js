@@ -69,7 +69,6 @@ function outOfBounds(x, y) {
 
 function movePlayer(direction) {
     directionImg = direction + ".png";
-    console.log("Current x and y: "+ currentX +" "+ currentY);
     
     switch (direction) {
         case "north":
@@ -141,18 +140,20 @@ function movePlayer(direction) {
     console.log("Changed x and y: "+ currentX +" "+ currentY);
 
     renderPlan.getGrid(currentX, currentY, xRenderRange, yRenderRange);
+    updatePlayerPosition();
     console.log(renderPlan.layout);
 }
 
 function updatePlayerPosition(){
     let xhr = new XMLHttpRequest();
-    xhr.open("POST","/updatePlayerPosition");
-    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    let package = {
-        x = currentX,
-        y = currentY,
+    let url = "/updatePlayerPosition/" + currentX + "/" + currentY + "/";
+    xhr.onload = () => {
+        let world = xhr.response;
+        console.log(world);
     }
-    xmlhttp.send(JSON.stringify(package));
+
+    xhr.open("GET", url);
+    xhr.send(null);
 
 
 }

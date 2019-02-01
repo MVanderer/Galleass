@@ -153,13 +153,13 @@ namespace Galleass.Controllers
 
             return JsonConvert.SerializeObject(package, Formatting.Indented);
         }
-        [HttpPost("updatePlayerPosition")]
-        public IActionResult UpdatePlayerInfo(string package)
+        [HttpGet("updatePlayerPosition/{x}/{y}")]
+        public string UpdatePlayerInfo(int x,int y )
         {
-            var resource = JsonConvert.DeserializeObject(package);
-            System.Console.WriteLine(resource);
+            System.Console.WriteLine("*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*");
+            System.Console.WriteLine(x+" "+y);
 
-            return RedirectToAction("GetPlayerInfo", "Home");
+            return "success";
         }
     }
 }
