@@ -126,6 +126,49 @@ button:focus {outline:0;}
     max-height: 900px;
     overflow-y: scroll;
 }
+#vesselDisplay{
+    margin: 0 auto;
+    width: 90%;
+    text-align: center;
+}
+.vessels{
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+}
+.vessels img{
+    width: 70%;
+    margin: 1%;
+    box-shadow: #0a2e54 11px 0 10px;
+}
+#newgame{
+    width: 20%;
+    margin: 2% auto;
+    box-shadow: #0a2e54 11px 0 10px;
+    border-radius: 10%;
+    text-align: center;
+    background-image: url("../img/nautical.jpeg");
+    background-position: center;
+    background-size: cover;
+    color: black;
+}
+#newgame input{
+    font-size: 100%;
+    background-color: #dce1e7;
+    color: black;
+}
+#newgame label{
+    color: black;
+}
+#vesselinput label{
+    color: black;
+    font-size: 125%;
+}
+#vesselinput select{
+    font-size: 150%;
+    background-color: #dce1e7;
+    color: black;
+}
 .aside{
     background-color: rgb(177, 125, 28);
 }
