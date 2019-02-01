@@ -7,19 +7,21 @@
 <h1>Create Player</h1>
 <h3>Slot @ViewBag.Player</h3>
 <main>
-    @foreach(var v in @ViewBag.Vessels)
-    {
-        <div class="vessels">
-            <h2>@v.TypeName</h2>
-            <img src="@v.VesselImageURL" alt="@v.TypeName">
-            <p>Max Crew: @v.MaxCrew</p>
-            <p>Min Crew: @v.MinCrew</p>
-            <p>Top Speed: @v.TopSpeed knots</p>
-            <p>Cargo Space: @v.CargoSpace units</p>
-            <p>Oars: @v.Oars</p>
-        </div>
-    }
-    <form asp-action="CreatePlayer" asp-controller="Home" method="Post">
+    <div id="vesselDisplay">
+        @foreach(var v in @ViewBag.Vessels)
+        {
+            <div class="vessels">
+                <h2>@v.TypeName</h2>
+                <img src="~/img/@v.VesselImageURL" alt="@v.TypeName">
+                <p>Max Crew: @v.MaxCrew</p>
+                <p>Min Crew: @v.MinCrew</p>
+                <p>Top Speed: @v.TopSpeed knots</p>
+                <p>Cargo Space: @v.CargoSpace units</p>
+                <p>Oars: @v.Oars</p>
+            </div>
+        }
+    </div>
+    <form id="newgame"asp-action="CreatePlayer" asp-controller="Home" method="Post">
         <div>
             <span asp-validation-for="PlayerName"></span><br>
             <label asp-for="PlayerName"></label><br>
@@ -30,7 +32,7 @@
             <label asp-for="ShipName"></label><br>
             <input asp-for="ShipName">
         </div>
-        <div>
+        <div id="vesselinput">
             <span asp-validation-for="VesselTypeId"></span><br>
             <label asp-for="VesselTypeId">Vessel</label><br>
             <select asp-for="VesselTypeId">
