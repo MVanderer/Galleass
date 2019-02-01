@@ -139,5 +139,17 @@ namespace Galleass.Controllers
             }
             return JsonConvert.SerializeObject(Map, Formatting.Indented);
         }
+
+        [HttpGet("getPlayerInfo")]
+        public string GetPlayerInfo(){
+            dynamic package = new {
+            x = 0,
+            y = 0,
+            name = "adrien",
+                
+            };
+
+            return JsonConvert.SerializeObject(package, Formatting.Indented);
+        }
     }
 }
