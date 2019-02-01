@@ -116,6 +116,8 @@ namespace Galleass.Controllers
             
             List<TradeGood> allGoods = dbContext.TradeGoods.ToList();
             ViewBag.SoldGoods=allGoods;
+
+            List<TradeGood> myCargo = dbContext.Players.Include(p => p.)
             
             List<string> PlayerCargo=new List<string>();
             PlayerCargo.Add("Food");
