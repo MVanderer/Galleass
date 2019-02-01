@@ -142,14 +142,24 @@ namespace Galleass.Controllers
 
         [HttpGet("getPlayerInfo")]
         public string GetPlayerInfo(){
+            int? X = HttpContext.Session.GetInt32("X");
+            int? Y = HttpContext.Session.GetInt32("Y");
             dynamic package = new {
-            x = 0,
-            y = 0,
+            x = (int)X,
+            y = (int)Y,
             name = "adrien",
                 
             };
 
             return JsonConvert.SerializeObject(package, Formatting.Indented);
+        }
+        [HttpPost("updatePlayerPosition")]
+        public IActionResult UpdatePlayerInfo(string package)
+        {
+            var resource = JsonConvert.DeserializeObject(package);
+            System.Console.WriteLine(resource);
+
+            return RedirectToAction("GetPlayerInfo", "Home");
         }
     }
 }
