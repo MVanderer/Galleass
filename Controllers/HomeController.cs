@@ -114,12 +114,9 @@ namespace Galleass.Controllers
             System.Console.WriteLine(myPort);
             ViewBag.PortName = "Arthur";
             
-            List<string> SoldGoods=new List<string>();
-            SoldGoods.Add("Food");
-            SoldGoods.Add("Fresh Water");
-            SoldGoods.Add("Textiles");
-            SoldGoods.Add("Spices");
-            ViewBag.SoldGoods=SoldGoods;
+            List<TradeGood> allGoods = dbContext.TradeGoods.ToList();
+            ViewBag.SoldGoods=allGoods;
+            
             List<string> PlayerCargo=new List<string>();
             PlayerCargo.Add("Food");
             PlayerCargo.Add("Fresh Water");
