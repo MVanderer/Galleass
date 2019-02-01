@@ -27,9 +27,12 @@ let currentOffsetY = 0;//movement.
 let directionImg = "southwest.png";
 let shifting = false;
 
+let anchorVis = document.getElementById("anchorLink");
+
+
 //this is the actual meat of the rendering pipeline
 let renderPlan = new renderView(currentX, currentY, xRenderRange, yRenderRange);
-console.log(renderPlan);
+// console.log(renderPlan);
 
 //User controls section
 document.addEventListener("keydown", (e) => {
@@ -41,18 +44,18 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-function movePlayerInDb(originX, originY, rangeX, rangeY) {
-    let xhr = new XMLHttpRequest();
-    let url = "/RenderMap/" + originX + "/" + originY + "/" + rangeX + "/" + rangeY;
-    xhr.onload = () => {
-        let world = JSON.parse(xhr.response);
-        return world;
+// function movePlayerInDb(originX, originY, rangeX, rangeY) {
+//     let xhr = new XMLHttpRequest();
+//     let url = "/RenderMap/" + originX + "/" + originY + "/" + rangeX + "/" + rangeY;
+//     xhr.onload = () => {
+//         let world = JSON.parse(xhr.response);
+//         return world;
 
-    }
+//     }
 
-    xhr.open("GET", url);
-    xhr.send(null);
-}
+//     xhr.open("GET", url);
+//     xhr.send(null);
+// }
 
 function outOfBounds(x, y) {
 
@@ -75,7 +78,7 @@ function movePlayer(direction) {
 
     switch (direction) {
         case "north":
-            console.log("out:" + outOfBounds(0, - 1));
+            // console.log("out:" + outOfBounds(0, - 1));
 
             if (!outOfBounds(0, - 1)) {
                 currentY--;
@@ -144,15 +147,37 @@ function movePlayer(direction) {
 
     renderPlan.getGrid(currentX, currentY, xRenderRange, yRenderRange);
     updatePlayerPosition();
+    let id;
+    for (let i = 3; i<=5;i++){
+        for (let j=3;j<=5;j++){
+            console.log(renderPlan.layout[i][j].Type);
+            
+            if (renderPlan.layout[i][j].Type=="port"){
+                console.log("PORT");
+                
+                anchorVis.style.display="block";
+                id = renderPlan.layout[i][j].Port.PortId;
+                anchorVis.setAttribute("href","/Port/"+id);
+                console.log(renderPlan.layout[i][j].Port.PortId);
+                
+            }
+        }
+    }
+    // if (id==undefined){
+    //     anchorVis.style.display="none";
+    // }
+    
     console.log(renderPlan.layout);
 }
 
 function updatePlayerPosition() {
     let xhr = new XMLHttpRequest();
+    
     let url = "/updatePlayerPosition/" + currentX + "/" + currentY + "/";
+    // console.log(url);
     xhr.onload = () => {
         let world = xhr.response;
-        console.log(world);
+        // console.log(world);
     }
 
     xhr.open("GET", url);

@@ -1,4 +1,6 @@
-#dircontrols{
+#dircontrols {
+    position: fixed;
+    z-index: 2;
     top: 37.5%;
     left: 37.5%;
     width: 25%;
@@ -35,5 +37,43 @@
 
 #anchor {
     position: fixed;
-    max-width: 5%;;
+    max-width: 10%;
+    bottom:3%;
+    left:3%;
 }
+
+#anchorLink{
+    display: none;
+}
+
+/* game world elements */
+
+#menuBtn{
+    position: absolute;
+    top:10px;
+    right: 10px;
+    font-size: 200%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    z-index: 3;
+}
+
+#gameMenu {
+    position: fixed;
+    top:0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.468);
+    z-index: 1;
+    transition: 0.5s;
+    width: 0;
+    height: 100%;
+    padding-top: 80px;
+}
+
+#gameMenu *{
+    display: block;
+    text-align: right;
+}
+
