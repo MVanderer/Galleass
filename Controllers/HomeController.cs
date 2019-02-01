@@ -123,6 +123,8 @@ namespace Galleass.Controllers
             .FirstOrDefault(p=>p.Slot == myId && p.UserId == myId);
 
             ViewBag.SoldGoods=allGoods;
+
+            List<TradeGood> myCargo = dbContext.Players.Include(p => p.)
             
             // ViewBag.PlayerCargo=me.Cargo;
             System.Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
