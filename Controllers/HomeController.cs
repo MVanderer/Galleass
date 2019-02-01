@@ -97,7 +97,9 @@ namespace Galleass.Controllers
             }
             int? slot = HttpContext.Session.GetInt32("PlayerId");
             int? id = HttpContext.Session.GetInt32("UserId");
-            Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == (int)slot && p.UserId == (int)id);
+            Player Playing = dbContext.Players.Include(p => p.GridSquare).FirstOrDefault(p => p.Slot == (int)slot && p.UserId == (int)id);
+            System.Console.WriteLine("###################################");
+            System.Console.WriteLine(Playing.GridSquare.GridSquareId);
             return View(Playing);
         }
 
@@ -158,7 +160,13 @@ namespace Galleass.Controllers
         {
             System.Console.WriteLine("*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*");
             System.Console.WriteLine($"X is {x}, Y is {y}");
-
+            int? slot = HttpContext.Session.GetInt32("PlayerId");
+            int? id = HttpContext.Session.GetInt32("UserId");
+            Player Playing = dbContext.Players.FirstOrDefault(p => p.Slot == (int)slot && p.UserId == (int)id);
+            GridSquare newPosition = dbContext.GridSquares.FirstOrDefault(g => g.xCoord == x && g.yCoord ==y);
+            Playing.GridSquareId = newPosition.GridSquareId;
+            HttpContext.Session.SetInt32("X",x);
+            HttpContext.Session.SetInt32("Y",y);
             return "success";
         }
     }
