@@ -6,6 +6,9 @@
 <div id="gameMenu">
     <a href="/Ship">Ship Details</a>
     <a href="/Ship">Ship Details</a>
+    <span style="display:none" id="xCoord">@Model.GridSquare.xCoord</span>
+    <span style="display:none" id="yCoord">@Model.GridSquare.yCoord</span>
+
 </div>
 
 <img src="~/img/anchor.png" alt="drop anchor" id="anchor">
@@ -23,9 +26,5 @@
 <canvas>
     Your browser does not support HTML5 Canvas.
 </canvas>
-<script>
-    
-</script>
-
 <script src="~/js/WorldDraw/world.js"></script>
 <script src="~/js/WorldDraw/game.js"></script>

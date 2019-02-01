@@ -13,8 +13,11 @@ let showingCoords = false;
 
 let size = 50;//will need to calculate based on size and range
 
-let currentX = 0;// will change, 
-let currentY = 0;// dependent on the player
+
+
+let currentX = Number(document.getElementById("xCoord").innerHTML);
+let currentY = Number(document.getElementById("xCoord").innerHTML);
+
 
 let xRenderRange = 4;//same as size
 let yRenderRange = 4;//change later
@@ -57,7 +60,7 @@ function outOfBounds(x, y) {
     y = renderPlan.playerY - 1 + y;
 
     if (renderPlan.layout[y][x] != null) {
-        if (renderPlan.layout[y][x].Type=="land"){
+        if (renderPlan.layout[y][x].Type == "land") {
             return true;
         }
         return false;
@@ -69,82 +72,82 @@ function outOfBounds(x, y) {
 
 function movePlayer(direction) {
     directionImg = direction + ".png";
-    
+
     switch (direction) {
         case "north":
-        console.log("out:" + outOfBounds(0, - 1));
-        
-        if (!outOfBounds(0, - 1)) {
-            currentY--;
-        }
-        break;
+            console.log("out:" + outOfBounds(0, - 1));
+
+            if (!outOfBounds(0, - 1)) {
+                currentY--;
+            }
+            break;
         case "northeast":
-        if (currentX % 2 == 0) {
-            if (!outOfBounds(1, - 1)) {
-                currentX++;
-                currentY--;
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(1, - 1)) {
+                    currentX++;
+                    currentY--;
+                }
             }
-        }
-        else {
-            if (!outOfBounds(1, 0)) {
-                currentX++;
+            else {
+                if (!outOfBounds(1, 0)) {
+                    currentX++;
+                }
             }
-        }
-        break;
+            break;
         case "northwest":
-        if (currentX % 2 == 0) {
-            if (!outOfBounds(- 1, - 1)) {
-                currentX--;
-                currentY--;
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(- 1, - 1)) {
+                    currentX--;
+                    currentY--;
+                }
             }
-        }
-        else {
-            if (!outOfBounds(- 1, 0)) {
-                currentX--;
+            else {
+                if (!outOfBounds(- 1, 0)) {
+                    currentX--;
+                }
             }
-        }
-        break;
+            break;
         case "south":
-        if (!outOfBounds(0, 1)) {
-            currentY++;
-        }
-        break;
+            if (!outOfBounds(0, 1)) {
+                currentY++;
+            }
+            break;
         case "southwest":
-        if (currentX % 2 == 0) {
-            if (!outOfBounds(- 1, - 1)) {
-                currentX--;
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(- 1, - 1)) {
+                    currentX--;
+                }
             }
-        }
-        else {
-            if (!outOfBounds(- 1, 1)) {
-                currentY++;
-                currentX--;
+            else {
+                if (!outOfBounds(- 1, 1)) {
+                    currentY++;
+                    currentX--;
+                }
             }
-        }
-        break;
+            break;
         case "southeast":
-        if (currentX % 2 == 0) {
-            if (!outOfBounds(1, 0)) {
-                currentX++;
+            if (currentX % 2 == 0) {
+                if (!outOfBounds(1, 0)) {
+                    currentX++;
+                }
             }
-        }
-        else {
-            if (!outOfBounds(1, 1)) {
-                currentX++;
-                currentY++;
-            }
-        } break;
+            else {
+                if (!outOfBounds(1, 1)) {
+                    currentX++;
+                    currentY++;
+                }
+            } break;
         default:
-        break;
+            break;
     }
-    console.log("Changed x and y: "+ currentX +" "+ currentY);
+    console.log("Changed x and y: " + currentX + " " + currentY);
 
     renderPlan.getGrid(currentX, currentY, xRenderRange, yRenderRange);
     updatePlayerPosition();
     console.log(renderPlan.layout);
 }
 
-function updatePlayerPosition(){
+function updatePlayerPosition() {
     let xhr = new XMLHttpRequest();
     let url = "/updatePlayerPosition/" + currentX + "/" + currentY + "/";
     xhr.onload = () => {
