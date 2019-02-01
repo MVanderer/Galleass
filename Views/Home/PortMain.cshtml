@@ -47,9 +47,8 @@
             <div id="buyGoods">
                 <h4>Goods sold at this port</h4>
                 <ul>
-                    @foreach(var good in ViewBag.SoldGoods){
-                        <li onclick="buyGoodById('@good.TradeGoodId')">@good.GoodName</li>
-                        <li>@good.GoodBasePrice</li>
+                    @foreach(var good in Model.PortPrices){
+                        <li onclick="buyGoodById('@good.TradeGood.TradeGoodId','@good.TradeGood.GoodName')">@good.TradeGood.GoodName @good.TradeGood.GoodBasePrice</li>
                     }
                 </ul>
             </div>

@@ -110,20 +110,29 @@ namespace Galleass.Controllers
             .ThenInclude(pp=>pp.TradeGood)
             .FirstOrDefault(p=>p.PortId==portId);
 
-            System.Console.WriteLine("****************************************************");
-            System.Console.WriteLine(myPort);
-            ViewBag.PortName = "Arthur";
             
             List<TradeGood> allGoods = dbContext.TradeGoods.ToList();
+
+            int slot=(int)HttpContext.Session.GetInt32("PlayerId");
+            int myId=(int)HttpContext.Session.GetInt32("UserId");
+
+            System.Console.WriteLine(myId);
+            Player me = dbContext.Players
+            .Include(p=>p.Cargo)
+            .ThenInclude(c=>c.TradeGood)
+            .FirstOrDefault(p=>p.Slot == myId && p.UserId == myId);
+
             ViewBag.SoldGoods=allGoods;
             
-            List<string> PlayerCargo=new List<string>();
-            PlayerCargo.Add("Food");
-            PlayerCargo.Add("Fresh Water");
-            PlayerCargo.Add("Textiles");
-            PlayerCargo.Add("Spices");
-            ViewBag.PlayerCargo=PlayerCargo;
-            
+            // ViewBag.PlayerCargo=me.Cargo;
+            System.Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            System.Console.WriteLine(me);
+
+            foreach(var carg in me.Cargo)
+            {
+                System.Console.WriteLine(carg.TradeGood.GoodName);
+            }
+            ViewBag.PlayerCargo=me.Cargo;
             return View(myPort);
         }
 
