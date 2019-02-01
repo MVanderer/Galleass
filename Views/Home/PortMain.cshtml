@@ -1,9 +1,15 @@
+@using Microsoft.AspNetCore.Http
 @using Galleass.Models
 @model Port
+
+@{
+    int wealth = (int)@Context.Session.GetInt32("Wealth");
+}
 <link rel="stylesheet" href="~/css/port.css">
 <h2>Port: @Model.PortName</h2>
 
 <a href="/World">
+<h5 class="wealth">Your current wealth: @wealth</h5>
 <h3 id="leave">Leave Port</h3></a>
 
 <div id="portOptions">
@@ -48,7 +54,10 @@
                 <h4>Goods sold at this port</h4>
                 <ul>
                     @foreach(var good in Model.PortPrices){
-                        <li onclick="buyGoodById('@good.TradeGood.TradeGoodId','@good.TradeGood.GoodName')">@good.TradeGood.GoodName @good.TradeGood.GoodBasePrice</li>
+                            float trade = (float)good.TradeGood.GoodBasePrice;
+                            float buy = (float)good.BuyModifier;
+                            float price = trade * buy;
+                        <li onclick="buyGoodById('@Model.PortId','@good.TradeGood.TradeGoodId','@good.TradeGood.GoodName')">@good.TradeGood.GoodName: <span style="color: yellow;">@price Dabloons</span></li>
                     }
                 </ul>
             </div>
@@ -72,10 +81,12 @@
             </div>
             <div id="sellGoods">
                 <h4>Your cargo</h4>
+                <h5>@wealth</h5>
 
                 <ul>
                     @foreach(var good in ViewBag.PlayerCargo){
-                        <li>@good</li>
+                        <li>@good.TradeGood.GoodName</li>
+                        <li>@good.Quantity</li>
                     }
                 </ul>
             </div>

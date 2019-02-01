@@ -1,7 +1,13 @@
+@using Microsoft.AspNetCore.Http
 @model Player
+@{
+    int wealth = (int)@Context.Session.GetInt32("Wealth");
+}
 
 <link rel="stylesheet" href="~/css/game.css">
 <button id="menuBtn" onclick="openGameMenu()">=</button>
+
+<h5 class="wealth">Your current wealth: @wealth</h5>
 
 <div id="gameMenu">
     <a href="/Ship">Ship Details</a>

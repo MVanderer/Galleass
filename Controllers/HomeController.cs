@@ -133,8 +133,32 @@ namespace Galleass.Controllers
             {
                 System.Console.WriteLine(carg.TradeGood.GoodName);
             }
+            ViewBag.Player = me;
             ViewBag.PlayerCargo=me.Cargo;
             return View(myPort);
+        }
+        [HttpPost("buy/{goodId}/{portId}")]
+        public IActionResult BuyGood(int goodId, int portId, int quantity)
+        {
+            int? wealth = HttpContext.Session.GetInt32("Wealth");
+            PortPrice buying = dbContext.PortPrices.FirstOrDefault(pp => pp.PortId == portId && pp.TradeGoodId == goodId);
+            TradeGood item = dbContext.TradeGoods.FirstOrDefault(g => g.TradeGoodId == goodId);
+            float cost = buying.BuyModifier * item.GoodBasePrice;
+            float purchase = (float)quantity * cost;
+            wealth = wealth - (int)purchase;
+            HttpContext.Session.SetInt32("Wealth", (int)wealth);
+            Cargo purchased = new Cargo();
+            int slot=(int)HttpContext.Session.GetInt32("PlayerId");
+            int myId=(int)HttpContext.Session.GetInt32("UserId");
+            Player player = dbContext.Players.FirstOrDefault(p=>p.Slot == myId && p.UserId == myId);
+            purchased.TradeGoodId = goodId;
+            purchased.Quantity = quantity;
+            purchased.PlayerId = player.PlayerId;
+            dbContext.Cargos.Add(purchased);
+            dbContext.SaveChanges();
+
+            return RedirectToAction("PortMain","Home", portId);
+
         }
 
         [HttpGet("RenderMap/{OriginX}/{OriginY}/{RangeX}/{RangeY}")]

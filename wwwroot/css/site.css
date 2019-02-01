@@ -45,6 +45,19 @@ h1,h2,h3,h4,h5{
     letter-spacing: 5px;
 }
 
+.wealth{
+    position: fixed;
+    text-align: center;
+    width:20%;
+    top:3%;
+    left:40%;
+    font-size: 140%;
+    padding:20px;
+    background: #00418ce9;
+    clip-path: polygon(0 0, 89% 0, 100% 100%, 13% 99%);
+    z-index: 30;
+}
+
 button{
     -webkit-user-select: none;
     -moz-user-select: none;

@@ -1,6 +1,6 @@
 console.log("Port");
 
-function buyGoodById(goodId,goodName){
+function buyGoodById(portId,goodId,goodName){
     console.log(goodName);
     let welcome = document.getElementById("tradeWelcome");
     let buy = document.getElementById("buyForm");
@@ -9,7 +9,7 @@ function buyGoodById(goodId,goodName){
     let price = 34;
     buy.innerHTML=`
     <h4>Buy ${goodName}</h4>
-    <form action="/buy/${goodId}" method="POST">
+    <form action="/buy/${goodId}/${portId}" method="POST">
     <p>Quantity:</p>
     <input type="number" name="quantity">
     
@@ -20,5 +20,5 @@ function buyGoodById(goodId,goodName){
 }
 
 function sellGoodsById(goodId,goodName){
-    
+
 }
