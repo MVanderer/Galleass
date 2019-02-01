@@ -13,11 +13,27 @@
     border: black 1px solid;
     border-radius: 10px;
 }
+
+#shipDetailsWrapper div p, #shipDetailsWrapper div h4{
+    color: black;
+    font-size: 150%;
+}
+#shipDetailsWrapper .heroImage{
+    /* width: 80%; */
+    position: absolute;
+    max-height: 90%;
+    top:2%;
+    left: 47%;
+}
 #shipDetailsWrapper div:nth-child(2){
-    top:18%;
-    left: 36%;
+    top:15%;
+    left: 39%;
 }
 #shipDetailsWrapper div:nth-child(3){
-    top:47%;
-    left: 34%;
+    top:43%;
+    left: 38%;
+}
+
+#shipDetailsWrapper div:nth-child(2), #shipDetailsWrapper div:nth-child(3){
+    padding:20px;
 }
