@@ -5,9 +5,10 @@
 <h1>LE GALLEAZZA</h1>
 <main>
     <h2>Welcome, Admiral @ViewBag.User </h2>
-    <img src="" alt="Le Galleazza"><br>
+    <img src="~/img/the_battle_of_lepanto.jpg" alt="Le Galleazza" class="heroImage"><br>
     <h3>Please choose a game:</h3>
-    
+    <div id="gameChoices">
+
     @{
 
         @if(@ViewBag.Players.Count == 0)
@@ -22,30 +23,31 @@
         {
             foreach(var p in @ViewBag.Players)
             {
-                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button><br>
+                <button class= "saveGameBtn" onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button><br>
             }
             for(int i = @ViewBag.Players.Count + 1; i <=3; i++)
             {
-                <button onclick="location.href='@Url.Action("NewGame", "Home", new {slot = i})'">New Game</button><br>
+                <button class= "saveGameBtn" onclick="location.href='@Url.Action("NewGame", "Home", new {slot = i})'">New Game</button><br>
             }    
         }
         @if(@ViewBag.Players.Count == 2)
         {
             foreach(var p in @ViewBag.Players)
             {
-                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button><br>
+                <button class= "saveGameBtn" onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button><br>
             }
             for(int i = @ViewBag.Players.Count + 1; i <=3; i++)
             {
-                <button onclick="location.href='@Url.Action("NewGame", "Home", new {slot = i})'">New Game</button><br>
+                <button class= "saveGameBtn" onclick="location.href='@Url.Action("NewGame", "Home", new {slot = i})'">New Game</button><br>
             }   
         }
         @if(@ViewBag.Players.Count == 3)
         {
             foreach(var p in @ViewBag.Players)
             {
-                <button onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button>
+                <button class= "saveGameBtn" onclick="location.href='@Url.Action("ContinueGame","Home",new {slot = @p.Slot})'">@p.PlayerName</button>
             }
         }
     }
+    </div>
 </main>
