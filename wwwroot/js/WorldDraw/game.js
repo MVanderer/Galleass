@@ -144,6 +144,19 @@ function movePlayer(direction) {
     console.log(renderPlan.layout);
 }
 
+function updatePlayerPosition(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST","/updatePlayerPosition");
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    let package = {
+        x = currentX,
+        y = currentY,
+    }
+    xmlhttp.send(JSON.stringify(package));
+
+
+}
+
 // console.log(myMap);
 
 function animate() {
