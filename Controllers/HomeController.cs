@@ -157,7 +157,7 @@ namespace Galleass.Controllers
         public string UpdatePlayerInfo(int x,int y )
         {
             System.Console.WriteLine("*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*");
-            System.Console.WriteLine("New Coordinates:"+x+" & "+y);
+            System.Console.WriteLine($"X is {x}, Y is {y}");
 
             return "success";
         }
