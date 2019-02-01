@@ -124,7 +124,6 @@ namespace Galleass.Controllers
 
             ViewBag.SoldGoods=allGoods;
 
-            List<TradeGood> myCargo = dbContext.Players.Include(p => p.)
             
             // ViewBag.PlayerCargo=me.Cargo;
             System.Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");

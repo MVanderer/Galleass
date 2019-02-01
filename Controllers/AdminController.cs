@@ -114,6 +114,8 @@ namespace Galleass.Controllers
             List<VesselType> allShips = dbContext.VesselTypes.ToList();
             List<TradeGood> allTradeGoods = dbContext.TradeGoods.ToList();
             List<GridSquare> allIslands = dbContext.GridSquares.ToList();
+            List<PortPrice> allPortPrices = dbContext.PortPrices.ToList();
+            ViewBag.Prices = allPortPrices;
             ViewBag.Ports = allPorts;
             ViewBag.Ships = allShips;
             ViewBag.TradeGoods = allTradeGoods;
@@ -239,7 +241,26 @@ namespace Galleass.Controllers
             dbContext.SaveChanges();
             return RedirectToAction("AdminDashboard", "Admin");
         }
-
+        [HttpGet("deletePortPrice/{portPriceId}")]
+        public IActionResult DeletePortPrice(int portPriceId)
+        {
+            PortPrice goodbyePortPrice = dbContext.PortPrices.FirstOrDefault(pp => pp.PortPriceId == portPriceId);
+            dbContext.Remove(goodbyePortPrice);
+            dbContext.SaveChanges();
+            return RedirectToAction("AdminDashboard","Admin");
+        }
+        // ****CREATES PORTPRICES****
+        [HttpPost("createPortPrice")]
+        public IActionResult CreatePortPrice(PortPrice newPortPrice)
+        {
+            if(ModelState.IsValid)
+            {
+                dbContext.PortPrices.Add(newPortPrice);
+                dbContext.SaveChanges();
+                return RedirectToAction("AdminDashboard","Admin");
+            }
+            return View("AdminDashboard");
+        }
         // ****CREATES VESSELTYPE****
         [HttpPost("createship")]
         public IActionResult CreateShip(VesselType newVessel)

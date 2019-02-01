@@ -18,6 +18,11 @@
         <h3>Create a Trade Good:</h3>
         <partial name="GoodsPartial"></partial>
     </div>
+        <div class="aside" id="PriceMaker">
+        <h3>Create a Port Price:</h3>
+        <partial name="PricePartial" view-data="ViewData"></partial>
+    </div>
+
     <div class="aside" id="shipMaker">
         <h3>Create a Ship:</h3>
         <partial name="ShipPartial"></partial>
@@ -86,6 +91,32 @@
             }
         </table>
 
+    </div>
+    <div>
+        <h3>Port Prices:</h3>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>PortId</th>
+                <th>TradeGoodId</th>
+                <th>Quantity</th>
+                <th>Sell</th>
+                <th>Buy</th>
+                <th>Action</th>
+            </tr>
+            @foreach(var p in @ViewBag.Prices)
+            {
+                <tr>
+                    <td>@p.PortPriceId</td>
+                    <td>@p.PortId</td>
+                    <td>@p.TradeGoodId</td>
+                    <td>@p.QuantityAvailable</td>
+                    <td>@p.SellModifier</td>
+                    <td>@p.BuyModifier</td>
+                    <td><a href="/deletePortPrice/@p.PortPriceId">Delete</a></td>
+                </tr>
+            }
+        </table>
     </div>
     <div>
         <h3>Ships:</h3>

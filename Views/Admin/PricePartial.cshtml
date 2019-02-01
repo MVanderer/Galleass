@@ -1,0 +1,33 @@
+@using Galleass.Models
+@model PortPrice
+<form asp-action="CreatePortPrice" asp-controller="Admin" method="Post">
+    <div>
+        <span asp-validation-for="PortId"></span><br>
+        <label asp-for="PortId"></label><br>
+        <input asp-for="PortId">
+    </div>
+    <div>
+        <span asp-validation-for="TradeGoodId"></span><br>
+        <label asp-for="TradeGoodId"></label><br>
+        <input asp-for="TradeGoodId">
+    </div>
+    <div>
+        <span asp-validation-for="BuyModifier"></span><br>
+        <label asp-for="BuyModifier"></label><br>
+        <input asp-for="BuyModifier"min="0">
+    </div>
+    <div>
+        <span asp-validation-for="SellModifier"></span><br>
+        <label asp-for="SellModifier"></label><br>
+        <input asp-for="SellModifier"min="0">
+    </div>
+    <div>
+        <span asp-validation-for="QuantityAvailable"></span><br>
+        <label asp-for="QuantityAvailable">Quantity</label><br>
+        <input asp-for="QuantityAvailable"min="0">
+    </div>
+    
+    <div>
+        <input class="submit" type="submit" value="Create Port">
+    </div>
+</form>
