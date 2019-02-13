@@ -115,6 +115,7 @@ namespace Galleass.Controllers
             List<TradeGood> allTradeGoods = dbContext.TradeGoods.ToList();
             List<GridSquare> allIslands = dbContext.GridSquares.ToList();
             List<PortPrice> allPortPrices = dbContext.PortPrices.ToList();
+            System.Console.WriteLine("**********************************************");
             ViewBag.Prices = allPortPrices;
             ViewBag.Ports = allPorts;
             ViewBag.Ships = allShips;
@@ -122,8 +123,14 @@ namespace Galleass.Controllers
             ViewBag.Islands = allIslands;
             ViewBag.Admin = userInDb.FirstName + " " + userInDb.LastName;
             List<GridSquare> gridsToMap = dbContext.GridSquares.ToList();
-            ViewBag.xMax = dbContext.GridSquares.Max(x => x.xCoord);
-            ViewBag.yMax = dbContext.GridSquares.Max(y => y.yCoord);
+            if (gridsToMap.Count<=0){
+                ViewBag.xMax = 0;
+                ViewBag.yMax = 0;
+            }
+            else {
+                ViewBag.xMax = dbContext.GridSquares.Max(x => x.xCoord);
+                ViewBag.yMax = dbContext.GridSquares.Max(y => y.yCoord);
+            }
             ViewBag.portMax = allPorts.Count;
             return View();
         }
